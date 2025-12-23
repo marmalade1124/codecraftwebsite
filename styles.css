@@ -44,7 +44,7 @@
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  background: var(--bg-dark);
+  background: transparent; /* Changed from var(--bg-dark) to allow Liquid Ether visibility */
   min-height: 100vh;
   color: var(--text-primary);
   overflow-x: hidden;
@@ -53,12 +53,16 @@ body {
   scroll-behavior: smooth;
 }
 
+html {
+  background: var(--bg-dark);
+}
+
 /* Background Effects */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: -3; /* Moved behind liquid ether */
   background: radial-gradient(
       circle at 15% 50%,
       rgba(249, 115, 22, 0.08),
@@ -91,6 +95,20 @@ body::after {
   padding: 1.5rem;
   position: relative;
   padding-bottom: 120px; /* Space for Pill Nav */
+  z-index: 1; /* Ensure content is above background */
+}
+
+/* Liquid Ether Background Container */
+#liquid-ether-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Above grid (-1) but behind content (1) */
+  pointer-events: none; /* Mouse events pass through to window */
+  background: transparent;
+  opacity: 1;
 }
 
 /* --- Navigation (Pill Nav) --- */
@@ -254,8 +272,8 @@ body::after {
 .bento-card {
   position: relative;
   background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Increased contrast */
+  border-radius: 32px; /* More rounded */
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: default;
@@ -471,50 +489,652 @@ body::after {
   font-weight: 500;
 }
 
-/* Responsive Grid */
+/* --- Pricing Grid (Restored & Balanced) --- */
+.pricing-grid {
+  display: grid;
+  /* Balanced 2x2 grid for 4 items on desktop */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 0 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* On very large screens, maybe 4 in a row */
+@media (min-width: 1400px) {
+  .pricing-grid {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1400px;
+  }
+}
+
+.pricing-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Increased contrast */
+  border-radius: 32px; /* More rounded */
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-glow);
+  box-shadow: var(--shadow-medium);
+}
+
+.pricing-header {
+  padding: 2rem;
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-subtle); /* Changed from border-bottom to full border */
+  border-radius: 24px; /* Rounded inner box */
+  margin: 8px; /* Spacing from outer card */
+}
+
+.pricing-header h3 {
+  font-size: 1.4rem;
+  color: var(--orange-primary);
+  margin-bottom: 0.5rem;
+}
+
+.pricing-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.pricing-body {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex-grow: 1;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  color: var(--text-primary);
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.price-row:last-of-type {
+  border-bottom: none;
+}
+
+.price-row.highlight {
+  color: var(--teal-primary);
+  font-weight: 600;
+}
+
+.price-row.bg-accent {
+  background: rgba(249, 115, 22, 0.1); /* Subtle orange tint */
+  margin: 0 -0.5rem;
+  padding: 0.5rem 0.5rem;
+  border-radius: 8px;
+  border-bottom: none;
+}
+
+.price {
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.price-meta {
+  margin-top: auto;
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Responsive Pricing */
+@media (max-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+}
+
 @media (max-width: 1024px) {
   .bento-grid {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
   }
-  .bento-card:nth-child(n) {
-    grid-column: span 1;
-  }
-  .bento-card:nth-child(5) {
-    grid-column: span 2;
-  }
+}
+
+/* --- Contact Section (Restored & Modernized) --- */
+.contact-section {
+  padding: 6rem 0;
+  margin-bottom: 4rem;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 3rem auto 0;
+  padding: 0 1rem;
 }
 
 @media (max-width: 768px) {
-  .bento-grid {
+  .contact-container {
     grid-template-columns: 1fr;
   }
-  .bento-card:nth-child(n) {
-    grid-column: span 1;
-  }
+}
 
-  .process-container {
-    flex-direction: column;
-    padding-left: 2rem;
-    gap: 2rem;
-  }
+.contact-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
 
-  .process-line {
-    width: 2px;
-    height: 100%;
-    left: 49px;
-    top: 0;
-  }
+.contact-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  .process-step {
+.contact-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--border-glow);
+  box-shadow: var(--shadow-medium);
+  background: var(--bg-card-hover);
+}
+
+.contact-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: all 0.4s ease;
+  color: var(--teal-primary);
+}
+
+.contact-card:hover .contact-icon-wrapper {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: var(--teal-primary);
+  transform: scale(1.1);
+  color: var(--white);
+}
+
+/* Specific colors for different cards */
+.contact-card-link:nth-child(1) .contact-card:hover .contact-icon-wrapper { /* Call */
+  color: var(--teal-primary);
+  background: rgba(6, 182, 212, 0.15);
+  border-color: var(--teal-primary);
+}
+
+.contact-card-link:nth-child(2) .contact-card:hover .contact-icon-wrapper { /* Email */
+  color: var(--orange-primary);
+  background: rgba(249, 115, 22, 0.15);
+  border-color: var(--orange-primary);
+}
+
+.contact-card-link:nth-child(3) .contact-card:hover .contact-icon-wrapper { /* Follow */
+  color: #1877f2; /* Facebook Blue */
+  background: rgba(24, 119, 242, 0.15);
+  border-color: #1877f2;
+}
+
+.contact-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.contact-card p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+
+.contact-icon-wrapper svg {
+  width: 32px !important;
+  height: 32px !important;
+  display: block;
+}
+
+.contact-icon {
+  width: 32px;
+  height: 32px;
+}
+
+/* --- Vertical Animated Timeline --- */
+.timeline-section {
+  padding: 8rem 0; /* Huge padding for grandeur */
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-container {
+  max-width: 1200px; /* Wider container */
+  margin: 0 auto;
+  position: relative;
+  padding: 2rem 0;
+}
+
+/* The Central Line */
+.timeline-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+
+/* The Filling Line */
+.timeline-line-filled {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  background: linear-gradient(to bottom, var(--orange-primary), var(--teal-primary));
+  transform: translateX(-50%);
+  height: 0%;
+  border-radius: 4px;
+  box-shadow: 0 0 15px rgba(249, 115, 22, 0.5);
+  transition: height 0.1s linear;
+  z-index: 1;
+}
+
+.timeline-steps {
+  position: relative;
+  width: 100%;
+}
+
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 3rem 4rem; /* Larger padding */
+  box-sizing: border-box;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+  z-index: 2;
+  clear: both;
+}
+
+/* Alternating Logic */
+.timeline-item:nth-child(odd) {
+  float: left;
+  text-align: right;
+  clear: left;
+}
+
+.timeline-item:nth-child(even) {
+  float: right;
+  text-align: left;
+  clear: right;
+  margin-top: 6rem; /* More vertical spacing */
+}
+
+/* Connecting Dot */
+.timeline-dot {
+  position: absolute;
+  width: 24px; /* Larger dots */
+  height: 24px;
+  background: var(--bg-card);
+  border: 4px solid var(--border-subtle);
+  border-radius: 50%;
+  top: 55px; /* Aligned with new larger content */
+  z-index: 3;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.timeline-item:nth-child(odd) .timeline-dot {
+  right: -14px;
+}
+
+.timeline-item:nth-child(even) .timeline-dot {
+  left: -14px;
+}
+
+/* Active State Animations */
+.timeline-item.active .timeline-dot {
+  border-color: var(--orange-primary);
+  background: var(--teal-primary);
+  transform: scale(1.3);
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(6, 182, 212, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+}
+
+.timeline-item.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  padding: 3rem; /* Spacious card */
+  position: relative;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.timeline-content:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-glow);
+  box-shadow: var(--shadow-medium);
+}
+
+/* New Header Layout for Alignment */
+.timeline-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Specific alignment for right-aligned items (odd) to keep icon next to text correctly? 
+   No, usually we want icon-text-dot | line | dot-text-icon
+   
+   If text-align is right:
+   [text-content] [icon]
+   
+   If text-align is left:
+   [icon] [text-content]
+*/
+
+.timeline-item:nth-child(odd) .timeline-header {
+  flex-direction: row-reverse; /* Icon on the right for right-aligned items */
+}
+
+.timeline-content h3 {
+  background: linear-gradient(90deg, var(--orange-primary), var(--white));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 2rem; /* Much larger title */
+  margin-bottom: 0; /* Handled by flex gap */
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.timeline-content p {
+  color: var(--text-secondary);
+  font-size: 1.15rem; /* Larger body text */
+  line-height: 1.7;
+}
+
+.timeline-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--teal-primary);
+  filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.6));
+  background: rgba(6, 182, 212, 0.1); /* Subtle circle bg */
+  padding: 12px;
+  border-radius: 50%;
+}
+
+.timeline-icon-box svg {
+  width: 40px; /* Larger icons */
+  height: 40px;
+}
+
+/* Clearfix for floats */
+.timeline-steps::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive Timeline */
+@media (max-width: 900px) { /* Trigger mobile overlap earlier due to width */
+  .timeline-line, .timeline-line-filled {
+    left: 30px;
+    transform: none;
+  }
+  
+  .timeline-item {
     width: 100%;
-    flex-direction: row;
-    gap: 1.5rem;
-    text-align: left;
-    background: transparent;
+    padding-left: 80px;
+    padding-right: 20px;
+    text-align: left !important;
+    float: none !important;
+    margin-top: 3rem !important;
   }
 
-  .company-name {
-    font-size: 2.5rem;
+  .timeline-header, .timeline-item:nth-child(odd) .timeline-header {
+    flex-direction: row; /* Always icon left on mobile */
+    justify-content: flex-start;
   }
+  
+  .timeline-item:nth-child(odd) .timeline-dot,
+  .timeline-item:nth-child(even) .timeline-dot {
+    left: 18px; 
+    right: auto;
+  }
+}
+
+/* --- Portfolio Section --- */
+.portfolio-section {
+  padding: 6rem 0;
+  position: relative;
+}
+
+.portfolio-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.portfolio-item {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 300px;
+  width: 350px; /* Fixed width for better flex centering, or use flex-basis */
+  flex: 0 1 350px; /* grow: 0, shrink: 1, basis: 350px */
+  box-shadow: var(--shadow-medium);
+  cursor: pointer;
+  
+  /* 3D Tilt Setup */
+  transform-style: preserve-3d;
+  will-change: transform;
+  
+  /* Fix for border-radius clipping in 3D */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
+  isolation: isolate;
+  transform: translateZ(0); /* Force layer creation */
+}
+
+.portfolio-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.portfolio-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.85); /* Dark blue overlay */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 2rem;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.portfolio-overlay h3 {
+  color: var(--teal-primary);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.portfolio-overlay p {
+  color: var(--white);
+  font-size: 1rem;
+  transform: translateY(20px);
+  transition: transform 0.3s ease 0.1s;
+}
+
+/* Hover Effects */
+.portfolio-item:hover img {
+  transform: scale(1.1);
+}
+
+.portfolio-item:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+.portfolio-item:hover .portfolio-overlay h3,
+.portfolio-item:hover .portfolio-overlay p {
+  transform: translateY(0);
+}
+
+/* --- Testimonials Section (Hidden) --- */
+.testimonials-section {
+  display: none !important;
+  padding: 6rem 0;
+  position: relative;
+  background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.05));
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.testimonial-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-glow);
+  box-shadow: var(--shadow-medium);
+}
+
+.client-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.client-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 1rem;
+  border: 2px solid var(--orange-primary);
+}
+
+.client-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--teal-primary);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.client-details h4 {
+  color: var(--white);
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.client-details p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.testimonial-text {
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.rating {
+  color: var(--orange-primary);
+  font-size: 1.2rem;
+}
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 4rem;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  backdrop-filter: none;
+  max-width: 100%;
+}
+
+.footer-tagline {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-top: 0.5rem;
 }
