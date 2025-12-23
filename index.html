@@ -3,678 +3,346 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Code&Craft - Design. Code. Create</title>
+    <title>Code&Craft - Design. Code. Create.</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="logo.png" />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@600;800;900&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- AOS Animation Library -->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   </head>
   <body>
-    <!-- Interactive Cursor Glow -->
-    <div class="cursor-glow" id="cursorGlow"></div>
-    
-    <div class="dashboard">
-      <!-- Business Information Section -->
+    <!-- Floating Pill Navigation -->
+    <nav class="pill-nav-container">
+      <div class="pill-nav">
+        <a href="#home" class="nav-item active">Home</a>
+        <a href="#services" class="nav-item">Services</a>
+        <a href="#how-it-works" class="nav-item">Process</a>
+        <a href="#contact" class="nav-item">Contact</a>
+      </div>
+    </nav>
+
+    <div class="dashboard" id="home">
+      <!-- Hero Section -->
       <header class="business-header">
-        <!-- Particles Background -->
         <div id="particles-js"></div>
-        
-        <div class="logo-section" data-aos="fade-down" data-aos-duration="1000">
-          <img src="logo.png" alt="Code&Craft Logo" class="logo-img">
+
+        <div class="logo-section" data-aos="fade-down" data-aos-duration="1200">
+          <img src="logo.png" alt="Code&Craft Logo" class="logo-img" />
           <h1 class="company-name">Code&Craft</h1>
-          <p class="tagline">Design. Code. Create</p>
+          <p class="tagline">Design. Code. Create.</p>
         </div>
       </header>
 
-      <!-- Services Carousel Section -->
-      <section class="services-section">
-        <h2 class="section-title">Our Services</h2>
-        <p class="section-subtitle">
-          Hover over each card to discover what we offer
-        </p>
+      <!-- Services Section: Bento Grid -->
+      <section class="services-section" id="services">
+        <div class="section-head" data-aos="fade-up">
+          <h2 class="section-title">Our Expertise</h2>
+          <p class="section-subtitle">
+            Comprehensive solutions for the digital age
+          </p>
+        </div>
 
-        <div class="carousel-container">
-          <button class="carousel-btn prev" id="prevBtn" aria-label="Previous">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="3"
-            >
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-
-          <div class="carousel-wrapper">
-            <div class="carousel-track" id="carouselTrack">
-              <!-- 3D Design Service -->
-              <div class="service-card">
-                <div class="card-inner">
-                  <div class="card-front">
-                    <img src="3d-design.jpg" alt="3D Design Services" />
-                    <div class="card-overlay">
-                      <h3>3D Design</h3>
-                    </div>
-                  </div>
-                  <div class="card-back">
-                    <h3>3D Design Services</h3>
-                    <ul class="service-list">
-                      <li>3D Printing</li>
-                      <li>3D Modelling</li>
-                      <li>Product Visualization</li>
-                    </ul>
-                    <p class="tools-label">Applications used:</p>
-                    <p class="tools">Fusion 360 • AutoCAD</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Programming Solutions -->
-              <div class="service-card">
-                <div class="card-inner">
-                  <div class="card-front">
-                    <img src="programming.jpg" alt="Programming Solutions" />
-                    <div class="card-overlay">
-                      <h3>Programming Solutions</h3>
-                    </div>
-                  </div>
-                  <div class="card-back">
-                    <h3>Programming Solutions</h3>
-                    <ul class="service-list">
-                      <li>Java Development</li>
-                      <li>Python Solutions</li>
-                      <li>C/C++ Programming</li>
-                      <li>Custom Software</li>
-                    </ul>
-                    <p class="tools-label">Applications used:</p>
-                    <p class="tools">VS Code • Unity • Arduino IDE</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Digital Design -->
-              <div class="service-card">
-                <div class="card-inner">
-                  <div class="card-front">
-                    <img
-                      src="digital-design.jpg"
-                      alt="Digital Design Services"
-                    />
-                    <div class="card-overlay">
-                      <h3>Digital Design</h3>
-                    </div>
-                  </div>
-                  <div class="card-back">
-                    <h3>Digital Design Services</h3>
-                    <ul class="service-list">
-                      <li>Logo & Branding Design</li>
-                      <li>UI/UX Design</li>
-                      <li>Video Editing</li>
-                      <li>Motion Graphics</li>
-                    </ul>
-                    <p class="tools-label">Applications used:</p>
-                    <p class="tools">
-                      Photoshop • Illustrator • Premiere Pro • Figma • DaVinci
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Logic Circuit & Design -->
-              <div class="service-card">
-                <div class="card-inner">
-                  <div class="card-front">
-                    <img src="logic-circuit.jpg" alt="Logic Circuit & Design" />
-                    <div class="card-overlay">
-                      <h3>Logic Circuit & Design</h3>
-                    </div>
-                  </div>
-                  <div class="card-back">
-                    <h3>Logic Circuit & Design</h3>
-                    <ul class="service-list">
-                      <li>HDL Programming</li>
-                      <li>Logic Circuits</li>
-                      <li>PCB Design</li>
-                    </ul>
-                    <p class="tools-label">Applications used:</p>
-                    <p class="tools">Logisim • Proteus • Multisim</p>
-                    <div class="consultation-badge">Free Consultation</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Prototype Solutions Promo -->
-              <div class="service-card">
-                <div class="card-inner">
-                  <div class="card-front">
-                    <img src="prototype-promo.jpg" alt="Prototype Solutions Services" />
-                    <div class="card-overlay">
-                      <h3>Prototype Services</h3>
-                    </div>
-                  </div>
-                  <div class="card-back">
-                    <h3>Experienced Prototype Solutions</h3>
-                    <ul class="service-list">
-                      <li>STEM Projects</li>
-                      <li>System Projects</li>
-                      <li>Arduino Projects</li>
-                    </ul>
-                    <p class="tools-label">Applications used:</p>
-                    <p class="tools">VS Code • Unity • Arduino</p>
-                  </div>
-                </div>
+        <div class="bento-grid">
+          <!-- 3D Design -->
+          <div class="bento-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-image-wrapper">
+              <img src="3d-design.jpg" alt="3D Design" />
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">3D Design & Print</h3>
+              <p class="card-desc">
+                From CAD modeling to high-precision 3D printing. We bring
+                physical prototypes to life.
+              </p>
+              <div class="card-tags">
+                <span class="tag">Fusion 360</span>
+                <span class="tag">AutoCAD</span>
+                <span class="tag">Prototyping</span>
               </div>
             </div>
           </div>
 
-          <button class="carousel-btn next" id="nextBtn" aria-label="Next">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="3"
-            >
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </div>
+          <!-- Programming -->
+          <div class="bento-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-image-wrapper">
+              <img src="programming.jpg" alt="Programming" />
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">Software Dev</h3>
+              <p class="card-desc">
+                Custom applications in Java, Python, and C++.
+              </p>
+              <div class="card-tags">
+                <span class="tag">Java</span>
+                <span class="tag">Python</span>
+                <span class="tag">C++</span>
+              </div>
+            </div>
+          </div>
 
-        <div class="carousel-dots" id="carouselDots"></div>
-        
-        <div class="learn-more-container">
-          <a href="#services-pricing" class="learn-more-btn">
-            <span>Explore Our Services & Pricing</span>
-            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
-            </svg>
-          </a>
+          <!-- Digital Design -->
+          <div class="bento-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="card-image-wrapper">
+              <img src="digital-design.jpg" alt="Digital Design" />
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">Digital Arts</h3>
+              <p class="card-desc">UI/UX, Branding, and Motion Graphics.</p>
+              <div class="card-tags">
+                <span class="tag">Figma</span>
+                <span class="tag">Adobe Suite</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Logic Circuit -->
+          <div class="bento-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="card-image-wrapper">
+              <img src="logic-circuit.jpg" alt="Logic Circuit" />
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">Electronics</h3>
+              <p class="card-desc">PCB Design and Logic Circuits.</p>
+              <div class="card-tags">
+                <span class="tag">PCB</span>
+                <span class="tag">IoT</span>
+                <span class="tag">Arduino</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prototype Promo -->
+          <div class="bento-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="card-image-wrapper">
+              <img src="prototype-promo.jpg" alt="Prototype Solutions" />
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">Rapid Prototyping</h3>
+              <p class="card-desc">
+                Accelerate your innovation with our integrated hardware and
+                software prototyping services. Perfect for STEM projects and
+                MVPs.
+              </p>
+              <div class="card-tags">
+                <span class="tag">System Integration</span>
+                <span class="tag">MVP</span>
+                <span class="tag">Robotics</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- How It Works Section -->
-      <section class="how-it-works-section">
-        <h2 class="section-title" data-aos="fade-up">How It Works</h2>
-        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-          A simple, transparent process focused on clear communication
-        </p>
+      <section class="how-it-works-section" id="how-it-works">
+        <div class="section-head" data-aos="fade-up">
+          <h2 class="section-title">The Process</h2>
+          <p class="section-subtitle">Transparency at every step</p>
+        </div>
 
         <div class="process-container">
-          <!-- Connecting Line -->
-          <div class="process-line" data-aos="fade-right" data-aos-delay="200"></div>
+          <div class="process-line"></div>
 
-          <!-- Step 1: Contact & Discuss -->
-          <div class="process-step" data-aos="zoom-in" data-aos-delay="300">
+          <!-- Step 1 -->
+          <div class="process-step" data-aos="fade-up" data-aos-delay="100">
             <div class="step-number">1</div>
             <div class="step-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              <!-- Message Circle -->
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+                ></path>
               </svg>
             </div>
-            <h3>Contact & Discuss</h3>
-            <p>Reach out via phone, email, or Facebook. We'll have a conversation about your project needs and vision.</p>
+            <h3>Discuss</h3>
+            <p>We start by understanding your vision and requirements.</p>
           </div>
 
-          <!-- Step 2: Quote & Timeline -->
-          <div class="process-step" data-aos="zoom-in" data-aos-delay="400">
+          <!-- Step 2 -->
+          <div class="process-step" data-aos="fade-up" data-aos-delay="200">
             <div class="step-number">2</div>
             <div class="step-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 11H3v10h6V11zM13 3h8v8h-8V3zM21 13h-8v8h8v-8z"/>
-                <rect x="3" y="3" width="6" height="6"/>
+              <!-- File Text -->
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                ></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
               </svg>
             </div>
-            <h3>Quote & Timeline</h3>
-            <p>We provide a detailed quote with transparent pricing and an approximate delivery timeframe for your project.</p>
+            <h3>Plan</h3>
+            <p>We provide a timeline, quote, and detailed roadmap.</p>
           </div>
 
-          <!-- Step 3: Approval & Payment -->
-          <div class="process-step" data-aos="zoom-in" data-aos-delay="500">
+          <!-- Step 3 -->
+          <div class="process-step" data-aos="fade-up" data-aos-delay="300">
             <div class="step-number">3</div>
             <div class="step-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
+              <!-- Code -->
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
               </svg>
             </div>
-            <h3>Approval & Start</h3>
-            <p>Once you approve the quote and timeline, we begin work immediately. Payment terms are discussed upfront.</p>
+            <h3>Build</h3>
+            <p>We execute the plan with regular updates and feedback loops.</p>
           </div>
 
-          <!-- Step 4: Production & Updates -->
-          <div class="process-step" data-aos="zoom-in" data-aos-delay="600">
+          <!-- Step 4 -->
+          <div class="process-step" data-aos="fade-up" data-aos-delay="400">
             <div class="step-number">4</div>
             <div class="step-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                <polyline points="2 17 12 22 22 17"/>
-                <polyline points="2 12 12 17 22 12"/>
+              <!-- Check Circle -->
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
               </svg>
             </div>
-            <h3>Production & Updates</h3>
-            <p>We create your project with regular updates. You can request revisions during the process to ensure perfection.</p>
+            <h3>Deliver</h3>
+            <p>Final quality checks and delivery of the polished product.</p>
           </div>
-
-          <!-- Step 5: Delivery & Support -->
-          <div class="process-step" data-aos="zoom-in" data-aos-delay="700">
-            <div class="step-number">5</div>
-            <div class="step-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="16 8 12 12 10 10"/>
-              </svg>
-            </div>
-            <h3>Delivery & Support</h3>
-            <p>Receive your completed project on time. We provide post-delivery support and are here for any questions.</p>
-          </div>
-        </div>
-
-        <!-- CTA -->
-        <div class="process-cta" data-aos="fade-up" data-aos-delay="800">
-          <p>Ready to get started?</p>
-          <a href="#contact-section" class="cta-button">
-            <span>Let's Talk About Your Project</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
         </div>
       </section>
 
-      </section>
-
-      <!-- Services & Pricing Detail Section -->
-      <section class="services-pricing" id="services-pricing">
-        <div class="pricing-header reveal-up">
-          <h2 class="section-title" data-aos="zoom-in">Services & Pricing</h2>
-          <p class="section-subtitle" data-aos="zoom-in" data-aos-delay="100">Transparent pricing for exceptional quality</p>
+      <!-- Contact Section -->
+      <section class="contact-section" id="contact">
+        <div class="section-head" data-aos="fade-up">
+          <h2 class="section-title">Get In Touch</h2>
+          <p class="section-subtitle">Let's create something amazing</p>
         </div>
 
-        <!-- 3D Design & Printing -->
-        <div class="service-detail reveal-up">
-          <div class="service-detail-header">
-            <h3>3D Design & Printing</h3>
-            <p>From concept to reality with precision 3D printing and modeling</p>
-          </div>
-          
-          <div class="pricing-grid-2">
-            <div class="pricing-card">
-              <div class="pricing-card-header">
-                <h4>3D Printing</h4>
-              </div>
-              <div class="pricing-list">
-                <div class="pricing-item">
-                  <span class="pricing-label">Filament Cost</span>
-                  <span class="pricing-value">₱2/gram</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Printing Time</span>
-                  <span class="pricing-value">₱55/hour</span>
-                </div>
-                <div class="pricing-item highlight">
-                  <span class="pricing-label">Minimum Fee</span>
-                  <span class="pricing-value">₱100</span>
-                </div>
-              </div>
-              <div class="pricing-note">Includes electricity & setup</div>
-            </div>
-
-            <div class="pricing-card">
-              <div class="pricing-card-header">
-                <h4>CAD Design</h4>
-              </div>
-              <div class="pricing-list">
-                <div class="pricing-item">
-                  <span class="pricing-label">Base Design</span>
-                  <span class="pricing-value">₱200</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Free Revisions</span>
-                  <span class="pricing-value">2 included</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Extra Revision</span>
-                  <span class="pricing-value">₱50 each</span>
-                </div>
-              </div>
-              <div class="pricing-note">Minimum ₱100 applies</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Logo & Branding Design -->
-        <div class="service-detail reveal-up">
-          <div class="service-detail-header">
-            <h3>Logo & Branding Design</h3>
-            <p>Professional branding that makes you stand out</p>
-          </div>
-          
-          <div class="pricing-grid-3">
-            <div class="pricing-tier-card">
-              <div class="tier-badge">Basic</div>
-              <div class="tier-price">
-                <span class="currency">₱</span>
-                <span class="amount">600</span>
-              </div>
-              <ul class="tier-features">
-                <li>1 Design Concept</li>
-                <li>2 Free Revisions</li>
-                <li>PNG & JPEG Files</li>
-              </ul>
-            </div>
-
-            <div class="pricing-tier-card featured">
-              <div class="tier-badge popular">Standard</div>
-              <div class="tier-price">
-                <span class="currency">₱</span>
-                <span class="amount">1,000</span>
-              </div>
-              <ul class="tier-features">
-                <li>2 Design Concepts</li>
-                <li>3 Free Revisions</li>
-                <li>PNG & JPEG Files</li>
-                <li>Transparent Background</li>
-              </ul>
-            </div>
-
-            <div class="pricing-tier-card">
-              <div class="tier-badge premium">Premium</div>
-              <div class="tier-price">
-                <span class="currency">₱</span>
-                <span class="amount">2,000</span>
-              </div>
-              <ul class="tier-features">
-                <li>3 Design Concepts</li>
-                <li>5 Free Revisions</li>
-                <li>Full Branding Pack</li>
-                <li>PNG, JPEG, SVG, PDF</li>
-                <li>Mockups Included</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="extras-grid">
-            <div class="extra-item">Extra Revision: <strong>₱150</strong></div>
-            <div class="extra-item">Rush (24hrs): <strong>+50%</strong></div>
-            <div class="extra-item">Logo Changes: <strong>₱300 min</strong></div>
-          </div>
-        </div>
-
-        <!-- Programming Solutions -->
-        <div class="service-detail reveal-up">
-          <div class="service-detail-header">
-            <h3>Programming & Software Development</h3>
-            <p>Custom software solutions tailored to your needs</p>
-          </div>
-          
-          <div class="pricing-grid-2">
-            <div class="pricing-card">
-              <div class="pricing-card-header">
-                <h4>Development Rates</h4>
-              </div>
-              <div class="pricing-list">
-                <div class="pricing-item">
-                  <span class="pricing-label">Web Development</span>
-                  <span class="pricing-value">₱700/hour</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Desktop Applications</span>
-                  <span class="pricing-value">₱800/hour</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Mobile Apps</span>
-                  <span class="pricing-value">₱900/hour</span>
-                </div>
-                <div class="pricing-item highlight">
-                  <span class="pricing-label">Minimum Project</span>
-                  <span class="pricing-value">₱2,000</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="pricing-card">
-              <div class="pricing-card-header">
-                <h4>Project Tiers</h4>
-              </div>
-              <div class="pricing-list">
-                <div class="pricing-item">
-                  <span class="pricing-label">Simple Scripts</span>
-                  <span class="pricing-value">₱2,000-₱5,000</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Small Applications</span>
-                  <span class="pricing-value">₱6,000-₱15,000</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Full Systems</span>
-                  <span class="pricing-value">₱20,000+</span>
-                </div>
-              </div>
-              <div class="pricing-note">3 free revisions, ₱350/hour for extras</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Prototype & STEM Projects -->
-        <div class="service-detail reveal-up">
-          <div class="service-detail-header">
-            <h3>Prototype, STEM & System Development</h3>
-            <p>Bring your innovative ideas to life with expert guidance</p>
-          </div>
-          
-          <div class="pricing-grid-2">
-            <div class="pricing-card">
-              <div class="pricing-card-header">
-                <h4>Consultation & Rates</h4>
-              </div>
-              <div class="pricing-list">
-                <div class="pricing-item">
-                  <span class="pricing-label">Initial Assessment</span>
-                  <span class="pricing-value">₱500</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Hardware/Electronics</span>
-                  <span class="pricing-value">₱500/hour</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Software/Programming</span>
-                  <span class="pricing-value">₱800/hour</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Materials</span>
-                  <span class="pricing-value">Cost + 15%</span>
-                </div>
-              </div>
-              <div class="pricing-note">Assessment fee waived if project proceeds</div>
-            </div>
-
-            <div class="pricing-card">
-              <div class="pricing-card-header">
-                <h4>Project Tiers</h4>
-              </div>
-              <div class="pricing-list">
-                <div class="pricing-item">
-                  <span class="pricing-label">Basic</span>
-                  <span class="pricing-value">₱3,000-₱5,000</span>
-                </div>
-                <div class="pricing-subtext">Simple Arduino/sensor projects</div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Intermediate</span>
-                  <span class="pricing-value">₱6,000-₱12,000</span>
-                </div>
-                <div class="pricing-subtext">Multi-sensor, wireless, app integration</div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Advanced</span>
-                  <span class="pricing-value">₱15,000+</span>
-                </div>
-                <div class="pricing-subtext">Full IoT, robotics, AI systems</div>
-              </div>
-              <div class="pricing-note">2 free revisions, ₱400/hour for changes</div>
-            </div>
-          </div>
-
-          <div class="extras-grid">
-            <div class="extra-item">Minimum Project: <strong>₱1,000</strong></div>
-            <div class="extra-item">Rush Delivery: <strong>+50%</strong></div>
-          </div>
-        </div>
-
-        <!-- Digital Design & Video Editing -->
-        <div class="service-detail reveal-up">
-          <div class="service-detail-header">
-            <h3>Digital Design & Video Editing</h3>
-            <p>Creative visual content that captures attention</p>
-          </div>
-          
-          <div class="pricing-grid-2">
-            <div class="pricing-card">
-              <div class="pricing-card-header">
-                <h4>Design Services</h4>
-              </div>
-              <div class="pricing-list">
-                <div class="pricing-item">
-                  <span class="pricing-label">UI/UX Design</span>
-                  <span class="pricing-value">₱600/hour</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Social Media Graphics</span>
-                  <span class="pricing-value">₱300 each</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Poster/Flyer Design</span>
-                  <span class="pricing-value">₱500-₱1,500</span>
-                </div>
-                <div class="pricing-item highlight">
-                  <span class="pricing-label">Minimum Project</span>
-                  <span class="pricing-value">₱500</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="pricing-card">
-              <div class="pricing-card-header">
-                <h4>Video Editing</h4>
-              </div>
-              <div class="pricing-list">
-                <div class="pricing-item">
-                  <span class="pricing-label">Basic Edit (≤5 min)</span>
-                  <span class="pricing-value">₱800</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Standard Edit (5-15 min)</span>
-                  <span class="pricing-value">₱1,500</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Advanced Edit (15+ min)</span>
-                  <span class="pricing-value">₱2,500+</span>
-                </div>
-              </div>
-              <div class="pricing-note">Motion graphics: +₱500-₱1,500</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Logic Circuit & PCB Design -->
-        <div class="service-detail reveal-up">
-          <div class="service-detail-header">
-            <h3>Logic Circuit & PCB Design</h3>
-            <p>Professional circuit design and hardware solutions</p>
-          </div>
-          
-          <div class="pricing-grid-2">
-            <div class="pricing-card">
-              <div class="pricing-card-header">
-                <h4>Design Services</h4>
-              </div>
-              <div class="pricing-list">
-                <div class="pricing-item">
-                  <span class="pricing-label">Consultation</span>
-                  <span class="pricing-value">₱500</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Schematic Design</span>
-                  <span class="pricing-value">₱600/hour</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">PCB Layout</span>
-                  <span class="pricing-value">₱700/hour</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">HDL Programming</span>
-                  <span class="pricing-value">₱800/hour</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="pricing-card">
-              <div class="pricing-card-header">
-                <h4>Project Packages</h4>
-              </div>
-              <div class="pricing-list">
-                <div class="pricing-item">
-                  <span class="pricing-label">Simple Circuit</span>
-                  <span class="pricing-value">₱2,000-₱5,000</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">PCB Design (2-layer)</span>
-                  <span class="pricing-value">₱5,000-₱12,000</span>
-                </div>
-                <div class="pricing-item">
-                  <span class="pricing-label">Complex Systems</span>
-                  <span class="pricing-value">₱15,000+</span>
-                </div>
-              </div>
-              <div class="pricing-note">Free consultation fee, ₱400/hour for revisions</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pricing-footer reveal-up">
-          <p class="footer-note">All prices are in Philippine Pesos (₱). Contact us for custom quotes on large projects.</p>
-        </div>
-      </section>
-
-      <!-- Contact Us Section -->
-      <section class="contact-section" id="contact-section">
-        <h2 class="section-title">Get In Touch</h2>
-        <p class="section-subtitle">Let's bring your ideas to life</p>
-        
         <div class="contact-container">
-          <div class="contact-card" data-aos="flip-left" data-aos-delay="100">
-            <div class="contact-icon-wrapper">
-              <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
-            </div>
-            <h3>Call Us</h3>
-            <p>+63 919 247 1080</p>
-            <p>+63 992 445 6533</p>
-          </div>
-
-          <div class="contact-card" data-aos="flip-left" data-aos-delay="200">
-            <div class="contact-icon-wrapper">
-              <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-            </div>
-            <h3>Email Us</h3>
-            <p>cc.codecraft3d@gmail.com</p>
-          </div>
-
-          <a href="https://www.facebook.com/profile.php?id=61577838842721" target="_blank" rel="noopener noreferrer" class="contact-card-link" data-aos="flip-left" data-aos-delay="300">
+          <a
+            href="tel:+639192471080"
+            class="contact-card-link"
+            data-aos="zoom-in"
+            data-aos-delay="100"
+          >
             <div class="contact-card">
               <div class="contact-icon-wrapper">
-                <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                <svg
+                  class="contact-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  ></path>
                 </svg>
               </div>
-              <h3>Follow Us</h3>
+              <h3>Call</h3>
+              <p>+63 919 247 1080</p>
+            </div>
+          </a>
+
+          <a
+            href="mailto:cc.codecraft3d@gmail.com"
+            class="contact-card-link"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+          >
+            <div class="contact-card">
+              <div class="contact-icon-wrapper">
+                <svg
+                  class="contact-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  ></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <h3>Email</h3>
+              <p>cc.codecraft3d@gmail.com</p>
+            </div>
+          </a>
+
+          <a
+            href="https://www.facebook.com/profile.php?id=61577838842721"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-card-link"
+            data-aos="zoom-in"
+            data-aos-delay="300"
+          >
+            <div class="contact-card">
+              <div class="contact-icon-wrapper">
+                <svg
+                  class="contact-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                  ></path>
+                </svg>
+              </div>
+              <h3>Follow</h3>
               <p>Code&Craft</p>
             </div>
           </a>
@@ -688,109 +356,9 @@
       </footer>
     </div>
 
-    <!-- Particles.js Library -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
-    <!-- Initialize Libraries -->
-    <script>
-      // Initialize AOS - animations repeat on scroll
-      AOS.init({
-        duration: 800,
-        once: false,  // Changed to false so animations repeat
-        offset: 100,
-        easing: 'ease-out-cubic',
-        mirror: true  // Animate out when scrolling past
-      });
-
-      // Initialize Particles.js with brand colors
-      particlesJS('particles-js', {
-        particles: {
-          number: {
-            value: 60,
-            density: {
-              enable: true,
-              value_area: 800
-            }
-          },
-          color: {
-            value: ['#ff8c52', '#3a9fb5']
-          },
-          shape: {
-            type: 'circle'
-          },
-          opacity: {
-            value: 0.4,
-            random: true,
-            anim: {
-              enable: true,
-              speed: 1,
-              opacity_min: 0.1,
-              sync: false
-            }
-          },
-          size: {
-            value: 3,
-            random: true,
-            anim: {
-              enable: true,
-              speed: 2,
-              size_min: 0.5,
-              sync: false
-            }
-          },
-          line_linked: {
-            enable: true,
-            distance: 150,
-            color: '#3a9fb5',
-            opacity: 0.2,
-            width: 1
-          },
-          move: {
-            enable: true,
-            speed: 1.5,
-            direction: 'none',
-            random: true,
-            straight: false,
-            out_mode: 'out',
-            bounce: false,
-            attract: {
-              enable: true,
-              rotateX: 600,
-              rotateY: 1200
-            }
-          }
-        },
-        interactivity: {
-          detect_on: 'canvas',
-          events: {
-            onhover: {
-              enable: true,
-              mode: 'grab'
-            },
-            onclick: {
-              enable: true,
-              mode: 'push'
-            },
-            resize: true
-          },
-          modes: {
-            grab: {
-              distance: 140,
-              line_linked: {
-                opacity: 0.5
-              }
-            },
-            push: {
-              particles_nb: 4
-            }
-          }
-        },
-        retina_detect: true
-      });
-    </script>
-    
     <script src="script.js"></script>
   </body>
 </html>
