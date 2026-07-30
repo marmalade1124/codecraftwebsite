@@ -21,45 +21,64 @@
   <!-- anime.js v3 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=15" />
 </head>
 <body class="lenis lenis-smooth">
 
-  <!-- =====================================================
-       NAVBAR (Podium Pill & Collapsible Menu Trigger)
-       ===================================================== -->
-  <header id="cc-nav-wrapper" class="nav-wrapper" data-nav-status="closed">
-    <div class="container nav-inner">
+  <!-- Custom Magnetic Spotlight Cursor -->
+  <div id="cursor-dot" class="cursor-dot"></div>
+  <div id="cursor-ring" class="cursor-ring"></div>
 
-      <!-- Logo -->
+  <!-- =====================================================
+       PODIUM CURTAIN INTRO DROP LOADER
+       ===================================================== -->
+  <div id="pa-loader" class="loader-wrapper">
+    <div class="loader-layer layer-yellow"></div>
+    <div class="loader-layer layer-navy">
+      <img src="logo.png" alt="Code&amp;Craft Loader" class="loader-logo" />
+    </div>
+    <div class="loader-layer layer-dark"></div>
+  </div>
+
+  <!-- =====================================================
+       NAVBAR (Podium Collapsible Floating Pill)
+       ===================================================== -->
+  <header id="cc-nav-wrapper" class="podium-nav-wrapper" data-nav-desktop="opened" data-nav-status="closed">
+    <div class="container nav-container">
+
+      <!-- Left Logo -->
       <a href="#" class="nav-brand" aria-label="Code&amp;Craft Home">
         <img src="logo.png" alt="Code&amp;Craft Logo" />
         <span class="brand-name">Code&amp;Craft</span>
       </a>
 
-      <!-- Desktop Nav Items -->
-      <nav class="nav-menu-inline hide-mobile">
-        <a href="#services" class="nav-link">Services</a>
-        <a href="#difference" class="nav-link">The Difference</a>
-        <a href="#process" class="nav-link">Process</a>
-        <a href="#portfolio" class="nav-link">Work</a>
-        <a href="#pricing" class="nav-link">Pricing</a>
-      </nav>
+      <!-- Right Floating Capsule Pill Component -->
+      <div class="nav-pill-component">
+        <div class="nav-pill-capsule">
+          <!-- Burger trigger shown when collapsed or hoverable -->
+          <button id="cc-burger-inline" class="nav-pill-burger" aria-label="Toggle menu">
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+          </button>
 
-      <!-- Action & Mobile Toggle -->
-      <div class="nav-actions">
-        <a href="https://codecraftmanagement.vercel.app/inquiry?source=CC-10" target="_blank" class="button-primary-pill" id="nav-cta-btn">
+          <!-- Collapsible text links -->
+          <div class="nav-pill-links-wrap">
+            <nav class="nav-pill-links">
+              <a href="#services" class="pill-link">Services</a>
+              <a href="#difference" class="pill-link">The Difference</a>
+              <a href="#process" class="pill-link">Process</a>
+              <a href="#portfolio" class="pill-link">Work</a>
+              <a href="#pricing" class="pill-link">Pricing</a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- CTA Quote Button (Attached right) -->
+        <a href="https://codecraftmanagement.vercel.app/inquiry?source=CC-10" target="_blank" class="nav-pill-cta" id="nav-cta-btn">
           <span>Start your quote</span>
-          <svg class="button-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <span class="cta-arrow">&#x21B3;</span>
         </a>
-
-        <button id="cc-burger" class="nav-burger-btn" aria-label="Toggle Navigation Menu">
-          <span class="burger-bar"></span>
-          <span class="burger-bar"></span>
-          <span class="burger-bar"></span>
-        </button>
       </div>
 
     </div>
@@ -112,11 +131,14 @@
     <header class="section-hero">
 
       <!-- Hero Top (Paper Yellow Background) -->
-      <div class="hero-top-section background-color-paper-yellow">
-        <div class="container container-large">
+      <div class="hero-top-section background-color-paper-yellow" style="position:relative; overflow:hidden;">
+        <!-- Dynamic anime.js Geometry Particle Canvas -->
+        <canvas id="hero-particle-canvas" class="hero-canvas"></canvas>
+
+        <div class="container container-large" style="position:relative; z-index:2;">
           <div class="hero-grid">
             <div class="hero-title-wrapper">
-              <h1 class="hero-heading" sa-lines>
+              <h1 class="hero-heading" sa-letters>
                 Faster is better.
               </h1>
             </div>
@@ -267,7 +289,15 @@
           </div>
         </div>
 
-        <div class="horizontal-line" data-animate-line style="margin: 4rem 0;"></div>
+        <!-- Animated SVG Circuit Path Divider -->
+        <div class="circuit-divider-wrap">
+          <svg class="circuit-path-svg" viewBox="0 0 1200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="circuit-path" d="M0 20 H300 L320 5 H500 L520 35 H800 L820 20 H1200" stroke="#F58332" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="320" cy="5" r="4" fill="#F58332"/>
+            <circle cx="520" cy="35" r="4" fill="#0C425F"/>
+            <circle cx="820" cy="20" r="4" fill="#F58332"/>
+          </svg>
+        </div>
 
         <!-- The CodeCraft Difference Checklist -->
         <div class="difference-sub-grid">
@@ -576,24 +606,24 @@
             </div>
             <div class="pricing-col-specs">
               <div class="pricing-spec-row">
-                <span>Filament Print</span>
-                <span class="spec-price">₱2 / g</span>
+                <span>Filament Printing</span>
+                <span class="spec-price">&check;</span>
               </div>
               <div class="pricing-spec-row">
-                <span>Printing Time</span>
-                <span class="spec-price">₱55 / hr</span>
+                <span>Custom CAD Modeling</span>
+                <span class="spec-price">&check;</span>
               </div>
               <div class="pricing-spec-row">
-                <span>Minimum Fee</span>
-                <span class="spec-price">₱100</span>
+                <span>Prototyping &amp; Iteration</span>
+                <span class="spec-price">&check;</span>
               </div>
               <div class="pricing-spec-row">
-                <span>CAD Design Base</span>
-                <span class="spec-price">₱200+</span>
+                <span>Surface Finishing</span>
+                <span class="spec-price">&check;</span>
               </div>
             </div>
             <div class="pricing-col-footer">
-              Includes setup &amp; machine electricity. 2 free revisions for design.
+              Tailored rates based on print weight &amp; machine time. Setup included.
             </div>
           </div>
 
@@ -604,24 +634,24 @@
             </div>
             <div class="pricing-col-specs">
               <div class="pricing-spec-row">
-                <span>Basic (1 Concept)</span>
-                <span class="spec-price">₱600</span>
+                <span>Basic Concept Pack</span>
+                <span class="spec-price">&check;</span>
               </div>
               <div class="pricing-spec-row">
-                <span>Standard (2 Concepts)</span>
-                <span class="spec-price">₱1,000</span>
+                <span>Standard Identity Suite</span>
+                <span class="spec-price">&check;</span>
               </div>
               <div class="pricing-spec-row">
-                <span>Premium (Full Pack)</span>
-                <span class="spec-price">₱2,000</span>
+                <span>Full Brand Package</span>
+                <span class="spec-price">&check;</span>
               </div>
               <div class="pricing-spec-row">
-                <span>Logo Refresh</span>
-                <span class="spec-price">₱300+</span>
+                <span>Vector Source Files</span>
+                <span class="spec-price">&check;</span>
               </div>
             </div>
             <div class="pricing-col-footer">
-              Premium includes vector source files (AI/SVG) &amp; full asset exports.
+              Custom packages according to asset requirements &amp; revision rounds.
             </div>
           </div>
 
@@ -633,24 +663,24 @@
             </div>
             <div class="pricing-col-specs">
               <div class="pricing-spec-row">
-                <span>Simple Scripts</span>
-                <span class="spec-price">₱2k – ₱5k</span>
+                <span>Automation Scripts</span>
+                <span class="spec-price">&check;</span>
               </div>
               <div class="pricing-spec-row">
-                <span>Small Web Apps</span>
-                <span class="spec-price">₱6k – ₱15k</span>
+                <span>Web &amp; Mobile Apps</span>
+                <span class="spec-price">&check;</span>
               </div>
               <div class="pricing-spec-row">
-                <span>Full Enterprise Systems</span>
-                <span class="spec-price">₱20k+</span>
+                <span>Full System Architecture</span>
+                <span class="spec-price">&check;</span>
               </div>
               <div class="pricing-spec-row">
-                <span>Hourly Rate</span>
-                <span class="spec-price">₱700 / hr</span>
+                <span>Dedicated Hourly Support</span>
+                <span class="spec-price">&check;</span>
               </div>
             </div>
             <div class="pricing-col-footer">
-              3 free revisions included. Post-delivery support available.
+              Milestone-based project quotes or hourly engineering arrangements.
             </div>
           </div>
 
@@ -661,24 +691,24 @@
             </div>
             <div class="pricing-col-specs">
               <div class="pricing-spec-row">
-                <span>Initial Consultation</span>
-                <span class="spec-price">₱500</span>
+                <span>Technical Consultation</span>
+                <span class="spec-price">&check;</span>
               </div>
               <div class="pricing-spec-row">
-                <span>Schematic Design</span>
-                <span class="spec-price">₱600 / hr</span>
+                <span>Schematic Capture</span>
+                <span class="spec-price">&check;</span>
               </div>
               <div class="pricing-spec-row">
-                <span>PCB Layout</span>
-                <span class="spec-price">₱700 / hr</span>
+                <span>Custom PCB Layout</span>
+                <span class="spec-price">&check;</span>
               </div>
               <div class="pricing-spec-row">
-                <span>Simple Circuit Build</span>
-                <span class="spec-price">₱2k – ₱5k</span>
+                <span>Firmware Programming</span>
+                <span class="spec-price">&check;</span>
               </div>
             </div>
             <div class="pricing-col-footer">
-              Consultation fee is credited toward final build if project proceeds.
+              Quoted per project complexity. Initial consultation credited to build.
             </div>
           </div>
 
@@ -806,6 +836,6 @@
   </div>
 
   <!-- Main JavaScript File -->
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=15"></script>
 </body>
 </html>

@@ -1,13 +1,13 @@
 /**
- * Code&Craft — Main Script
- * Powered by Lenis Smooth Scroll & anime.js v3
- * Podium Automation Animation Clone System
+ * Code&Craft — Main Animation Engine
+ * Lenis Smooth Scroll + anime.js v3
+ * Podium Automation Exact Animation System
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ============================================================
-     1. LENIS SMOOTH SCROLL INITIALIZATION
+     1. LENIS SMOOTH SCROLL & TICKER SYNC
      ============================================================ */
   let lenis;
   if (typeof Lenis !== 'undefined') {
@@ -29,22 +29,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ============================================================
-     2. NAVBAR SCROLL BLUR & DRAWER TOGGLE
+     2. PODIUM FLOATING PILL NAV (Scroll Collapse & Drawer)
      ============================================================ */
-  const navWrapper = document.getElementById('cc-nav-wrapper');
-  const burgerBtn  = document.getElementById('cc-burger');
-  const menuDrawer = document.getElementById('cc-menu-drawer');
-  const drawerLinks = document.querySelectorAll('[data-drawer-link]');
+  const navWrapper   = document.getElementById('cc-nav-wrapper');
+  const burgerInline = document.getElementById('cc-burger-inline');
+  const menuDrawer   = document.getElementById('cc-menu-drawer');
+  const drawerLinks  = document.querySelectorAll('[data-drawer-link]');
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      navWrapper.classList.add('scrolled');
+  const COLLAPSE_THRESHOLD = 80;
+  function handleScrollNav() {
+    if (!navWrapper) return;
+    if (window.scrollY > COLLAPSE_THRESHOLD) {
+      navWrapper.setAttribute('data-nav-desktop', 'closed');
     } else {
-      navWrapper.classList.remove('scrolled');
+      navWrapper.setAttribute('data-nav-desktop', 'opened');
     }
-  }, { passive: true });
+  }
+
+  window.addEventListener('scroll', handleScrollNav, { passive: true });
+  if (lenis) lenis.on('scroll', handleScrollNav);
+  handleScrollNav();
 
   function toggleDrawer(open) {
+    if (!navWrapper || !menuDrawer) return;
     const isCurrentlyOpen = navWrapper.getAttribute('data-nav-status') === 'open';
     const nextState = open !== undefined ? open : !isCurrentlyOpen;
 
@@ -55,26 +62,24 @@ document.addEventListener('DOMContentLoaded', () => {
       if (nextState) lenis.stop(); else lenis.start();
     }
 
-    if (nextState) {
+    if (nextState && typeof anime !== 'undefined') {
       const items = document.querySelectorAll('.drawer-nav-item');
-      items.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-      });
-
       anime({
         targets: items,
         opacity: [0, 1],
         translateY: [30, 0],
-        duration: 700,
-        delay: anime.stagger(60, { start: 200 }),
+        duration: 650,
+        delay: anime.stagger(50, { start: 150 }),
         easing: 'cubicBezier(0.19, 1, 0.22, 1)'
       });
     }
   }
 
-  if (burgerBtn) {
-    burgerBtn.addEventListener('click', () => toggleDrawer());
+  if (burgerInline) {
+    burgerInline.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDrawer();
+    });
   }
 
   drawerLinks.forEach(link => {
@@ -82,130 +87,34 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ============================================================
-     3. ANIMATED HORIZONTAL DIVIDER LINES (Podium Clip-Path Sweep)
+     3. HERO LETTER-BY-LETTER ELASTIC STAGGER ([sa-letters])
      ============================================================ */
-  const lineObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.setAttribute('data-animate-line', 'animated');
-        entry.target.classList.add('line-visible');
-        lineObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('[data-animate-line]').forEach(line => {
-    lineObserver.observe(line);
-  });
-
-  /* ============================================================
-     4. LINE-BY-LINE TEXT SPLIT & REVEAL (Hero & Headings)
-     ============================================================ */
-  const lineHeadings = document.querySelectorAll('[sa-lines]');
-
-  lineHeadings.forEach(heading => {
-    const originalText = heading.innerHTML;
-    const lines = originalText.split('<br>');
-
-    heading.innerHTML = lines.map(lineText => {
-      return `<span style="display:block; overflow:hidden;"><span class="sa-line-inner" style="display:block; transform:translateY(110%); opacity:0;">${lineText.trim()}</span></span>`;
+  const letterHeadings = document.querySelectorAll('[sa-letters]');
+  letterHeadings.forEach(heading => {
+    const rawText = heading.textContent.trim();
+    heading.innerHTML = rawText.split('').map(char => {
+      if (char === ' ') return '&nbsp;';
+      return `<span class="letter-span" style="display:inline-block; opacity:0; transform:translateY(40px) rotate(8deg);">${char}</span>`;
     }).join('');
 
-    const headingObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const inners = entry.target.querySelectorAll('.sa-line-inner');
-          anime({
-            targets: inners,
-            opacity: [0, 1],
-            translateY: ['110%', '0%'],
-            duration: 950,
-            delay: anime.stagger(90, { start: 100 }),
-            easing: 'cubicBezier(0.19, 1, 0.22, 1)'
-          });
-          headingObserver.unobserve(entry.target);
-        }
+    const letters = heading.querySelectorAll('.letter-span');
+    if (typeof anime !== 'undefined') {
+      anime({
+        targets: letters,
+        opacity: [0, 1],
+        translateY: [40, 0],
+        rotate: [8, 0],
+        duration: 900,
+        delay: anime.stagger(35, { start: 250 }),
+        easing: 'easeOutElastic(1, .6)'
       });
-    }, { threshold: 0.1 });
-
-    headingObserver.observe(heading);
+    } else {
+      letters.forEach(l => { l.style.opacity = '1'; l.style.transform = 'none'; });
+    }
   });
 
   /* ============================================================
-     5. BLOCK & CHILDREN REVEAL ANIMATIONS
-     ============================================================ */
-  const blockObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        anime({
-          targets: entry.target,
-          opacity: [0, 1],
-          translateY: [32, 0],
-          duration: 800,
-          easing: 'cubicBezier(0.19, 1, 0.22, 1)'
-        });
-        blockObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('[sa-block]').forEach(el => {
-    el.style.opacity = '0';
-    blockObserver.observe(el);
-  });
-
-  const childrenObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const children = entry.target.children;
-        anime({
-          targets: Array.from(children),
-          opacity: [0, 1],
-          translateY: [24, 0],
-          duration: 750,
-          delay: anime.stagger(100),
-          easing: 'cubicBezier(0.19, 1, 0.22, 1)'
-        });
-        childrenObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('[sa-children]').forEach(el => {
-    Array.from(el.children).forEach(c => c.style.opacity = '0');
-    childrenObserver.observe(el);
-  });
-
-  /* ============================================================
-     6. HERO METRIC COUNTERS
-     ============================================================ */
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        document.querySelectorAll('[data-count]').forEach(el => {
-          const targetVal = parseInt(el.getAttribute('data-count'), 10);
-          const counterObj = { val: 0 };
-          anime({
-            targets: counterObj,
-            val: targetVal,
-            round: 1,
-            duration: 1800,
-            easing: 'easeOutExpo',
-            update: () => {
-              el.textContent = counterObj.val;
-            }
-          });
-        });
-        counterObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  const metricsStrip = document.querySelector('.hero-metrics-strip');
-  if (metricsStrip) counterObserver.observe(metricsStrip);
-
-  /* ============================================================
-     7. HERO CODE STREAM STREAMER
+     4. HERO CODE STREAM TERMINAL
      ============================================================ */
   const codeStreamBody = document.getElementById('hero-code-stream');
   if (codeStreamBody) {
@@ -240,26 +149,287 @@ document.addEventListener('DOMContentLoaded', () => {
         row.appendChild(cursor);
         codeStreamBody.scrollTop = codeStreamBody.scrollHeight;
 
-        anime({
-          targets: row,
-          opacity: [0, 1],
-          translateY: [6, 0],
-          duration: 200,
-          easing: 'easeOutQuad'
-        });
+        if (typeof anime !== 'undefined') {
+          anime({
+            targets: row,
+            opacity: [0, 1],
+            translateY: [6, 0],
+            duration: 180,
+            easing: 'easeOutQuad'
+          });
+        } else {
+          row.style.opacity = '1';
+          row.style.transform = 'none';
+        }
 
         lineIndex++;
-        setTimeout(renderLine, 180 + Math.random() * 100);
+        setTimeout(renderLine, 140 + Math.random() * 80);
       }
     }
 
-    setTimeout(renderLine, 800);
+    setTimeout(renderLine, 500);
   }
 
   /* ============================================================
-     8. PORTFOLIO CAROUSEL SLIDER CONTROLS
+     5. HERO METRIC COUNTERS
      ============================================================ */
-  const track = document.getElementById('portfolio-track');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('[data-count]').forEach(el => {
+          const targetVal = parseInt(el.getAttribute('data-count'), 10);
+          const counterObj = { val: 0 };
+          if (typeof anime !== 'undefined') {
+            anime({
+              targets: counterObj,
+              val: targetVal,
+              round: 1,
+              duration: 1600,
+              easing: 'easeOutExpo',
+              update: () => {
+                el.textContent = counterObj.val;
+              }
+            });
+          } else {
+            el.textContent = targetVal;
+          }
+        });
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  const metricsStrip = document.querySelector('.hero-metrics-strip');
+  if (metricsStrip) counterObserver.observe(metricsStrip);
+
+  /* ============================================================
+     6. ANIMATED HORIZONTAL DIVIDER LINES (Podium Clip-Path Sweep)
+     ============================================================ */
+  const lineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.setAttribute('data-animate-line', 'animated');
+        entry.target.classList.add('line-visible');
+        lineObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('[data-animate-line]').forEach(line => {
+    lineObserver.observe(line);
+  });
+
+  /* ============================================================
+     7. SCROLL REVEALS ([sa-lines], [sa-block], [sa-children])
+     ============================================================ */
+  const lineHeadings = document.querySelectorAll('[sa-lines]');
+  lineHeadings.forEach(heading => {
+    const rawHTML = heading.innerHTML;
+    const lines = rawHTML.split('<br>');
+
+    heading.innerHTML = lines.map(lineText => {
+      return `<span style="display:block; overflow:hidden;"><span class="sa-line-inner" style="display:block; transform:translateY(105%); opacity:0;">${lineText.trim()}</span></span>`;
+    }).join('');
+
+    const headingObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const inners = entry.target.querySelectorAll('.sa-line-inner');
+          if (typeof anime !== 'undefined') {
+            anime({
+              targets: inners,
+              opacity: [0, 1],
+              translateY: ['105%', '0%'],
+              duration: 900,
+              delay: anime.stagger(90),
+              easing: 'cubicBezier(0.19, 1, 0.22, 1)'
+            });
+          } else {
+            inners.forEach(i => { i.style.opacity = '1'; i.style.transform = 'none'; });
+          }
+          headingObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    headingObserver.observe(heading);
+  });
+
+  const blockObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (typeof anime !== 'undefined') {
+          anime({
+            targets: entry.target,
+            opacity: [0, 1],
+            translateY: [28, 0],
+            duration: 750,
+            easing: 'cubicBezier(0.19, 1, 0.22, 1)'
+          });
+        }
+        blockObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('[sa-block]').forEach(el => {
+    blockObserver.observe(el);
+  });
+
+  const childrenObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const children = Array.from(entry.target.children);
+        if (typeof anime !== 'undefined') {
+          anime({
+            targets: children,
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 700,
+            delay: anime.stagger(80),
+            easing: 'cubicBezier(0.19, 1, 0.22, 1)'
+          });
+        }
+        childrenObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('[sa-children]').forEach(el => {
+    childrenObserver.observe(el);
+  });
+
+  /* ============================================================
+     8. SVG CIRCUIT PATH DRAWING ANIMATION
+     ============================================================ */
+  const svgPathObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const path = entry.target.querySelector('.circuit-path');
+        if (path) path.classList.add('path-drawn');
+        svgPathObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.circuit-divider-wrap').forEach(wrap => {
+    svgPathObserver.observe(wrap);
+  });
+
+  /* ============================================================
+     9. HERO GEOMETRIC CANVAS
+     ============================================================ */
+  const heroCanvas = document.getElementById('hero-particle-canvas');
+  if (heroCanvas) {
+    const ctx = heroCanvas.getContext('2d');
+    let width  = heroCanvas.width  = heroCanvas.parentElement.offsetWidth;
+    let height = heroCanvas.height = heroCanvas.parentElement.offsetHeight;
+
+    window.addEventListener('resize', () => {
+      width  = heroCanvas.width  = heroCanvas.parentElement.offsetWidth;
+      height = heroCanvas.height = heroCanvas.parentElement.offsetHeight;
+    });
+
+    const particles = [];
+    const PARTICLE_COUNT = 25;
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 2.5 + 1.5,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        alpha: Math.random() * 0.35 + 0.15
+      });
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        for (let j = i + 1; j < PARTICLE_COUNT; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(245, 131, 50, ${0.18 * (1 - dist / 130)})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(12, 66, 95, ${p.alpha})`;
+        ctx.fill();
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > width)  p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+  }
+
+  /* ============================================================
+     10. CUSTOM MAGNETIC SPOTLIGHT CURSOR
+     ============================================================ */
+  const cursorDot  = document.getElementById('cursor-dot');
+  const cursorRing = document.getElementById('cursor-ring');
+
+  if (cursorDot && cursorRing) {
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX  = mouseX;
+    let ringY  = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.left = `${mouseX}px`;
+      cursorDot.style.top  = `${mouseY}px`;
+    }, { passive: true });
+
+    function renderCursorRing() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      cursorRing.style.left = `${ringX}px`;
+      cursorRing.style.top  = `${ringY}px`;
+      requestAnimationFrame(renderCursorRing);
+    }
+    requestAnimationFrame(renderCursorRing);
+
+    document.querySelectorAll('a, button, .service-editorial-row, .portfolio-card, .pricing-column').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursorRing.style.width  = '52px';
+        cursorRing.style.height = '52px';
+        cursorRing.style.borderColor = 'var(--orange)';
+        cursorRing.style.backgroundColor = 'rgba(245, 131, 50, 0.08)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorRing.style.width  = '36px';
+        cursorRing.style.height = '36px';
+        cursorRing.style.borderColor = 'var(--orange)';
+        cursorRing.style.backgroundColor = 'transparent';
+      });
+    });
+  }
+
+  /* ============================================================
+     11. PORTFOLIO CAROUSEL SLIDER CONTROLS
+     ============================================================ */
+  const track   = document.getElementById('portfolio-track');
   const prevBtn = document.getElementById('slide-prev');
   const nextBtn = document.getElementById('slide-next');
 
@@ -279,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ============================================================
-     9. SERVICE DETAIL MODAL SYSTEM
+     12. SERVICE DETAIL MODAL SYSTEM
      ============================================================ */
   const modalData = {
     '3d-design': {
