@@ -1,379 +1,487 @@
-// Mobile Menu Toggle
-const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
+/**
+ * CodeCraft — script.js
+ * Powered by anime.js v4
+ * Brand: #F58332 (orange) · #0C425F (navy)
+ */
 
-if (mobileMenuBtn && mobileMenu) {
-  mobileMenuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-  });
-}
+/* =============================================
+   WAIT FOR DOM
+   ============================================= */
+document.addEventListener('DOMContentLoaded', () => {
 
-// Simple Portfolio Slider Logic
-  // --- Service Modal Logic ---
-  const serviceCards = document.querySelectorAll('.service-card');
-  const modal = document.getElementById('service-modal');
-  const modalContent = document.getElementById('modal-content');
-  const closeModalBtn = document.getElementById('close-modal');
-  
-  // Modal Elements
-  const modalImage = document.getElementById('modal-image');
-  const modalTitle = document.getElementById('modal-title');
-  const modalTitleMobile = document.getElementById('modal-title-mobile');
-  const modalDesc = document.getElementById('modal-desc');
-  const modalFeatures = document.getElementById('modal-features');
-  const modalTag = document.getElementById('modal-tag');
+  /* =============================================
+     1. NAV — Scroll Blur + Active Link Spy
+     ============================================= */
+  const nav = document.getElementById('cc-nav');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('section[id]');
 
-  // Service Data
-  const servicesData = {
-      '3d-design': {
-          title: '3D Design & Printing',
-          desc: 'We transform your concepts into tangible reality. From intricate industrial parts to artistic sculptures, our high-precision 3D printing and CAD modeling services cover it all.',
-          image: '3d-design.jpg',
-          tag: 'Fusion 360',
-          features: [
-              'Filament Printing (PLA, PETG, ABS)',
-              'Industrial CAD Modeling',
-              'Prototyping & Iteration',
-              'Post-processing & Finishing'
-          ]
-      },
-      'digital-arts': {
-          title: 'Digital Arts & Branding',
-          desc: 'Elevate your brand with stunning visuals. We specialize in creating cohesive brand identities, user interfaces, and engaging motion graphics that leave a lasting impression.',
-          image: 'digital-design.jpg',
-          tag: 'Branding',
-          features: [
-              'Logo Design (Basic to Premium)',
-              'UI/UX Design for Web & Mobile',
-              'Social Media Assets',
-              'Vector Illustrations'
-          ]
-      },
-      'electronics': {
-          title: 'Electronics & IoT',
-          desc: 'Smart solutions for a connected world. We design and assemble custom circuit boards and IoT systems perfect for automation, thesis projects, and industrial monitoring.',
-          image: 'logic-circuit.jpg',
-          tag: 'IoT Systems',
-          features: [
-              'PCB Layout & Design',
-              'Schematic Capture',
-              'Arduino & ESP32 Integration',
-              'Sensor Interfacing'
-          ]
-      },
-      'prototyping': {
-          title: 'Rapid Prototyping',
-          desc: 'Accelerate your product development cycle. We integrate hardware and software into functional MVPs (Minimum Viable Products) ready for testing and demonstration.',
-          image: 'prototype-promo.jpg',
-          tag: 'Product Dev',
-          features: [
-              'Full-stack MVP Development',
-              'Enclosure Design & Fabrication',
-              'Firmware Programming',
-              'System Integration Testing'
-          ]
-      },
-      'software': {
-          title: 'Software Development',
-          desc: 'Robust software tailored to your needs. From simple automation scripts to complex enterprise-grade web and mobile applications, we code for performance and scalability.',
-          image: 'programming.jpg',
-          tag: 'Full Stack',
-          features: [
-              'Web Applications (React, Node.js)',
-              'Mobile App Development',
-              'Desktop Software (Java, C++)',
-              'Automation Scripts (Python)'
-          ]
+  // Scroll → frosted glass
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+
+    // Active link spy
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 120) {
+        current = sec.id;
       }
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
+    });
   };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  function openServiceModal(serviceId) {
-      if (!serviceId || !servicesData[serviceId]) return;
-      
-      const data = servicesData[serviceId];
-      
-      modalImage.src = data.image;
-      modalTitle.textContent = data.title;
-      modalTitleMobile.textContent = data.title;
-      modalDesc.textContent = data.desc;
-      modalTag.textContent = data.tag;
-      
-      // Clear and populate features
-      modalFeatures.innerHTML = '';
-      data.features.forEach(feature => {
-          const li = document.createElement('li');
-          li.className = 'flex items-center gap-2';
-          li.innerHTML = `<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span> ${feature}`;
-          modalFeatures.appendChild(li);
-      });
+  /* =============================================
+     2. MOBILE MENU
+     ============================================= */
+  const hamburger  = document.getElementById('cc-hamburger');
+  const mobileMenu = document.getElementById('cc-mobile-menu');
+  const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
 
-      // Show Modal
-      modal.classList.remove('hidden');
-      // Trigger reflow
-      void modal.offsetWidth; 
-      modal.classList.remove('opacity-0');
-      modalContent.classList.remove('scale-95');
-      document.body.style.overflow = 'hidden'; // Prevent background scroll
+  function toggleMenu(open) {
+    hamburger.classList.toggle('open', open);
+    mobileMenu.classList.toggle('active', open);
+    document.body.style.overflow = open ? 'hidden' : '';
   }
 
-  function closeServiceModal() {
-      modal.classList.add('opacity-0');
-      modalContent.classList.add('scale-95');
-      
-      setTimeout(() => {
-          modal.classList.add('hidden');
-          document.body.style.overflow = '';
-      }, 300);
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      toggleMenu(!mobileMenu.classList.contains('active'));
+    });
   }
 
-  // Event Listeners for Cards
-  serviceCards.forEach(card => {
-      card.addEventListener('click', () => {
-          const serviceId = card.getAttribute('data-service');
-          openServiceModal(serviceId);
-      });
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => toggleMenu(false));
   });
 
-  // Close Modal Listeners
-  if (closeModalBtn) closeModalBtn.addEventListener('click', closeServiceModal);
-  
-  // Close on backdrop click
-  if (modal) {
-      modal.addEventListener('click', (e) => {
-          if (e.target === modal) closeServiceModal();
+  /* =============================================
+     3. HERO ANIMATIONS (anime.js v4)
+     ============================================= */
+  const heroWords = document.querySelectorAll('.hero-heading .word-wrap');
+  const heroBadge = document.querySelector('.hero-badge');
+  const heroSub   = document.querySelector('.hero-subtext');
+  const heroActions = document.querySelector('.hero-actions');
+  const heroStats = document.querySelectorAll('.hero-stat');
+
+  // Stagger word reveal
+  if (heroWords.length) {
+    anime({
+      targets: heroWords,
+      opacity: [0, 1],
+      translateY: ['60%', '0%'],
+      easing: 'cubicBezier(0.21, 1, 0.34, 1)',
+      duration: 900,
+      delay: anime.stagger(80, { start: 200 }),
+    });
+  }
+
+  // Badge + subtext + actions
+  if (heroBadge) {
+    anime({
+      targets: [heroBadge, heroSub, heroActions],
+      opacity: [0, 1],
+      translateY: [20, 0],
+      easing: 'cubicBezier(0.21, 1, 0.34, 1)',
+      duration: 700,
+      delay: anime.stagger(120, { start: 600 }),
+    });
+  }
+
+  // Terminal card slide-in
+  const termCard = document.querySelector('.hero-terminal');
+  if (termCard) {
+    anime({
+      targets: termCard,
+      opacity: [0, 1],
+      translateX: [60, 0],
+      easing: 'cubicBezier(0.21, 1, 0.34, 1)',
+      duration: 900,
+      delay: 400,
+    });
+  }
+
+  // Stats count up
+  function animateCounters() {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = parseInt(el.getAttribute('data-count'));
+      const obj = { val: 0 };
+      anime({
+        targets: obj,
+        val: target,
+        easing: 'easeOutExpo',
+        duration: 1800,
+        delay: 800,
+        round: 1,
+        update() { el.textContent = obj.val; },
       });
+    });
   }
-  
-  // Expose to window for inline calls if needed
-  window.closeServiceModal = closeServiceModal;
+  animateCounters();
 
-  // --- Scroll to Service & Open Modal ---
-  function scrollToService(serviceId) {
-      const servicesSection = document.getElementById('services');
-      if (servicesSection) {
-          servicesSection.scrollIntoView({ behavior: 'smooth' });
-          // Open modal after a short delay to allow scroll to start/finish
-          setTimeout(() => {
-              openServiceModal(serviceId);
-          }, 800); 
+  /* =============================================
+     4. TERMINAL CODE TYPING
+     ============================================= */
+  const terminalBody = document.getElementById('terminal-code-body');
+  if (terminalBody) {
+    const codeLines = [
+      { html: '<span class="code-keyword">import</span> <span class="code-plain">{</span> <span class="code-func">Solutions</span> <span class="code-plain">}</span> <span class="code-keyword">from</span> <span class="code-string">\'@codecraft/core\'</span><span class="code-plain">;</span>' },
+      { html: '<br/>' },
+      { html: '<span class="code-comment">// Turning ideas into reality</span>' },
+      { html: '<span class="code-keyword">const</span> <span class="code-func">Project</span> <span class="code-plain">= () => {</span>' },
+      { html: '<span class="code-plain pl-4">  </span><span class="code-keyword">return</span> <span class="code-plain">(</span>' },
+      { html: '<span class="code-plain">    &lt;</span><span class="code-func">Solutions</span>' },
+      { html: '<span class="code-plain">      type</span><span class="code-plain">={[</span><span class="code-string">\'3D_Print\'</span><span class="code-plain">, </span><span class="code-string">\'Web_Dev\'</span><span class="code-plain">]}</span>' },
+      { html: '<span class="code-plain">      quality</span><span class="code-plain">={</span><span class="code-string">"PixelPerfect"</span><span class="code-plain">}</span>' },
+      { html: '<span class="code-plain">    /></span>' },
+      { html: '<span class="code-plain">  );</span>' },
+      { html: '<span class="code-plain">};</span>' },
+      { html: '<br/>' },
+      { html: '<span class="code-keyword">export default</span> <span class="code-func">Project</span><span class="code-plain">;</span>' },
+    ];
+
+    let i = 0;
+    const cursor = document.createElement('span');
+    cursor.className = 'terminal-cursor';
+
+    function typeLine() {
+      if (i < codeLines.length) {
+        const wrap = document.createElement('div');
+        wrap.style.opacity = '0';
+        wrap.style.transform = 'translateX(-8px)';
+        wrap.innerHTML = codeLines[i].html;
+        if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+        terminalBody.appendChild(wrap);
+        wrap.appendChild(cursor);
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+
+        anime({
+          targets: wrap,
+          opacity: [0, 1],
+          translateX: [-8, 0],
+          duration: 250,
+          easing: 'easeOutQuad',
+        });
+
+        i++;
+        setTimeout(typeLine, 180 + Math.random() * 120);
+      } else {
+        if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
       }
-  }
-  window.scrollToService = scrollToService;
+    }
 
-  // --- Theme Toggle Logic (Removed) ---
-  // Default to dark mode logic is handled by CSS class on HTML tag HTML tag is hardcoded to dark.
-  localStorage.setItem('theme', 'dark'); // Enforce dark mode preference
-  const htmlElement = document.documentElement;
-  htmlElement.classList.add('dark');
-
-
-  // --- Portfolio Slider Logic (Fixed) ---
-  const slider = document.getElementById('portfolio-slider');
-  const leftBtn = document.getElementById('slide-left');
-  const rightBtn = document.getElementById('slide-right');
-
-  if (slider && leftBtn && rightBtn) {
-    rightBtn.addEventListener('click', () => {
-      slider.scrollBy({ left: slider.offsetWidth, behavior: 'smooth' }); // Scroll full width
-    });
-
-    leftBtn.addEventListener('click', () => {
-      slider.scrollBy({ left: -slider.offsetWidth, behavior: 'smooth' }); // Scroll full width
-    });
+    setTimeout(typeLine, 1200);
   }
 
-  // --- Reveal on Scroll Animation ---
-  const revealElements = document.querySelectorAll('section, .service-card, .portfolio-item');
-  
+  /* =============================================
+     5. SCROLL-TRIGGERED REVEAL (IntersectionObserver + anime)
+     ============================================= */
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('opacity-100', 'translate-y-0');
-        entry.target.classList.remove('opacity-0', 'translate-y-8');
-      }
+      if (!entry.isIntersecting) return;
+
+      const el = entry.target;
+      const dir = el.classList.contains('will-animate-left') ? 'left'
+                : el.classList.contains('will-animate-right') ? 'right'
+                : 'up';
+
+      anime({
+        targets: el,
+        opacity: [0, 1],
+        translateY: dir === 'up'    ? [30, 0] : [0, 0],
+        translateX: dir === 'left'  ? [-40, 0]
+                  : dir === 'right' ? [40, 0] : [0, 0],
+        easing: 'cubicBezier(0.21, 1, 0.34, 1)',
+        duration: 750,
+        complete() {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        },
+      });
+
+      revealObserver.unobserve(el);
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.will-animate, .will-animate-left, .will-animate-right')
+    .forEach(el => revealObserver.observe(el));
+
+  // Staggered children reveal
+  const staggerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      const children = entry.target.querySelectorAll(':scope > *');
+      anime({
+        targets: Array.from(children),
+        opacity: [0, 1],
+        translateY: [30, 0],
+        easing: 'cubicBezier(0.21, 1, 0.34, 1)',
+        duration: 700,
+        delay: anime.stagger(80),
+      });
+
+      staggerObserver.unobserve(entry.target);
     });
   }, { threshold: 0.1 });
 
-  revealElements.forEach(el => {
-    // Add initial state classes if not present (optional, but good for JS-enabled)
-    el.classList.add('transition-all', 'duration-700', 'transform');
-    // We'll set initial opacity via CSS or just let them fade in naturally if we add the starting class
-    // For now, let's just observe them. To make it pop, we should add the starting classes in HTML or here.
-    // Let's add them here to avoid massive HTML diffs.
-    el.classList.add('opacity-0', 'translate-y-8'); 
-    
-    revealObserver.observe(el);
-  });
-
-  // --- Hero Typing Effect ---
-  const heroTextStr = "Code. Create.";
-  const heroTypewriterEl = document.getElementById('hero-typewriter');
-  
-  if (heroTypewriterEl) {
-    let i = 0;
-    function typeHero() {
-        if (i < heroTextStr.length) {
-            heroTypewriterEl.textContent += heroTextStr.charAt(i);
-            i++;
-            setTimeout(typeHero, 150); // Typing speed
-        }
-    }
-    // Start after slight delay
-    setTimeout(typeHero, 500);
-  }
-
-  // --- Terminal Code Typing Simulation ---
-  const terminalBody = document.getElementById('terminal-code-body');
-  if (terminalBody) {
-      const codeLines = [
-          { html: '<span class="code-keyword">import</span> <span class="code-plain">{</span> <span class="code-func">Solutions</span> <span class="code-plain">}</span> <span class="code-keyword">from</span> <span class="code-string">\'@codecraft/core\'</span><span class="code-plain">;</span>', delay: 50 },
-          { html: '<br/>', delay: 20 },
-          { html: '<div class="code-comment">// Turning ideas into reality</div>', delay: 40 },
-          { html: '<div><span class="code-keyword">const</span> <span class="code-func">Project</span> <span class="code-plain">= () => {</span></div>', delay: 30 },
-          { html: '<div class="pl-4"><span class="code-keyword">return</span> <span class="code-plain">(</span></div>', delay: 30 },
-          { html: '<div class="pl-8"><span class="code-plain">&lt;</span><span class="code-func">Solutions</span></div>', delay: 30 },
-          { html: '<div class="pl-12"><span class="code-plain">type=</span><span class="code-plain">{[</span><span class="code-string">\'3D_Print\'</span><span class="code-plain">, </span><span class="code-string">\'Web_Dev\'</span><span class="code-plain">]}</span></div>', delay: 20 },
-          { html: '<div class="pl-12"><span class="code-plain">quality=</span><span class="code-plain">{</span><span class="code-string">"PixelPerfect"</span><span class="code-plain">}</span></div>', delay: 20 },
-          { html: '<div class="pl-8"><span class="code-plain">/></span></div>', delay: 30 },
-          { html: '<div class="pl-4"><span class="code-plain">);</span></div>', delay: 30 },
-          { html: '<div><span class="code-plain">};</span></div>', delay: 30 },
-          { html: '<br/>', delay: 20 },
-          { html: '<div><span class="code-keyword">export default</span> <span class="code-func">Project</span><span class="code-plain">;</span></div>', delay: 50 }
-      ];
-
-      let lineIndex = 0;
-      function typeCode() {
-          if (lineIndex < codeLines.length) {
-              const line = codeLines[lineIndex];
-              const lineEl = document.createElement('div');
-              lineEl.innerHTML = line.html;
-              terminalBody.appendChild(lineEl);
-              
-              // Auto scroll to bottom
-              terminalBody.scrollTop = terminalBody.scrollHeight;
-              
-              lineIndex++;
-              setTimeout(typeCode, Math.random() * 100 + 100); // Random typing delay between lines
-          }
-      }
-      setTimeout(typeCode, 1500); // Start after hero text
-  }
-
-
-
-  // --- Scroll Spy (Active Nav Link) ---
-  const sections = document.querySelectorAll('section');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  window.addEventListener('scroll', () => {
-    let current = '';
-    
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-      if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
-        current = section.getAttribute('id');
-      }
+  document.querySelectorAll('[data-stagger]')
+    .forEach(el => {
+      el.querySelectorAll(':scope > *').forEach(c => { c.style.opacity = '0'; });
+      staggerObserver.observe(el);
     });
 
-    navLinks.forEach(link => {
-      link.classList.remove('text-primary', 'dark:text-primary'); // Remove highlight
-      link.classList.add('text-slate-600', 'dark:text-slate-300'); // Restore defaults
-      if (link.getAttribute('href').includes(current)) {
-        link.classList.remove('text-slate-600', 'dark:text-slate-300');
-        link.classList.add('text-primary', 'dark:text-primary'); // Add highlight
-      }
-    });
-  });
-
-  // --- Particles.js Initialization ---
-  if (document.getElementById('particles-js')) {
-      particlesJS("particles-js", {
-          "particles": {
-              "number": {
-                  "value": 60,
-                  "density": {
-                      "enable": true,
-                      "value_area": 800
-                  }
-              },
-              "color": {
-                  "value": ["#F58230", "#3b82f6"] // Orange and Blue
-              },
-              "shape": {
-                  "type": "circle",
-                  "stroke": {
-                      "width": 0,
-                      "color": "#000000"
-                  },
-              },
-              "opacity": {
-                  "value": 0.3,
-                  "random": true,
-                  "anim": {
-                      "enable": true,
-                      "speed": 1,
-                      "opacity_min": 0.1,
-                      "sync": false
-                  }
-              },
-              "size": {
-                  "value": 3,
-                  "random": true,
-                  "anim": {
-                      "enable": false,
-                      "speed": 40,
-                      "size_min": 0.1,
-                      "sync": false
-                  }
-              },
-              "line_linked": {
-                  "enable": true,
-                  "distance": 150,
-                  "color": "#475569", // Slate-600ish interaction line
-                  "opacity": 0.2,
-                  "width": 1
-              },
-              "move": {
-                  "enable": true,
-                  "speed": 2,
-                  "direction": "none",
-                  "random": false,
-                  "straight": false,
-                  "out_mode": "out",
-                  "bounce": false,
-                  "attract": {
-                      "enable": false,
-                      "rotateX": 600,
-                      "rotateY": 1200
-                  }
-              }
-          },
-          "interactivity": {
-              "detect_on": "canvas",
-              "events": {
-                  "onhover": {
-                      "enable": true,
-                      "mode": "grab"
-                  },
-                  "onclick": {
-                      "enable": true,
-                      "mode": "push"
-                  },
-                  "resize": true
-              },
-              "modes": {
-                  "grab": {
-                      "distance": 140,
-                      "line_linked": {
-                          "opacity": 0.6
-                      }
-                  },
-                  "push": {
-                      "particles_nb": 4
-                  }
-              }
-          },
-          "retina_detect": true
+  // Process steps
+  const processObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const steps = entry.target.querySelectorAll('.process-step');
+      anime({
+        targets: steps,
+        opacity: [0, 1],
+        translateY: [24, 0],
+        easing: 'cubicBezier(0.21, 1, 0.34, 1)',
+        duration: 700,
+        delay: anime.stagger(120),
       });
+      processObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.15 });
+
+  const processGrid = document.querySelector('.process-steps');
+  if (processGrid) {
+    processGrid.querySelectorAll('.process-step').forEach(s => { s.style.opacity = '0'; });
+    processObserver.observe(processGrid);
   }
+
+  /* =============================================
+     6. SERVICE CARDS — Magnetic Hover
+     ============================================= */
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / rect.width;
+      const dy = (e.clientY - cy) / rect.height;
+
+      anime({
+        targets: card,
+        rotateX: -dy * 4,
+        rotateY: dx * 4,
+        duration: 300,
+        easing: 'easeOutQuad',
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      anime({
+        targets: card,
+        rotateX: 0,
+        rotateY: 0,
+        duration: 600,
+        easing: 'cubicBezier(0.21, 1, 0.34, 1)',
+      });
+    });
+  });
+
+  /* =============================================
+     7. SERVICE MODAL
+     ============================================= */
+  const servicesData = {
+    '3d-design': {
+      title: '3D Design & Printing',
+      desc: 'We transform your concepts into tangible reality. From intricate industrial parts to artistic sculptures, our high-precision 3D printing and CAD modeling services cover it all. Filament types include PLA, PETG, and ABS for every application.',
+      image: '3d-design.jpg',
+      tag: 'Fusion 360',
+      features: [
+        'Filament Printing (PLA, PETG, ABS)',
+        'Industrial CAD Modeling (Fusion 360)',
+        'Prototyping & Iterative Design',
+        'Post-processing & Surface Finishing',
+      ],
+    },
+    'digital-arts': {
+      title: 'Digital Arts & Branding',
+      desc: 'Elevate your brand with stunning visuals. We specialize in creating cohesive brand identities, user interfaces, and engaging motion graphics that leave a lasting impression on every screen and print.',
+      image: 'digital-design.jpg',
+      tag: 'Branding',
+      features: [
+        'Logo Design (Basic to Premium)',
+        'UI/UX Design for Web & Mobile',
+        'Social Media Asset Packs',
+        'Vector Illustrations & Icons',
+      ],
+    },
+    'electronics': {
+      title: 'Electronics & IoT',
+      desc: 'Smart solutions for a connected world. We design and assemble custom circuit boards and IoT systems perfect for automation, thesis projects, and industrial monitoring at every scale.',
+      image: 'logic-circuit.jpg',
+      tag: 'IoT Systems',
+      features: [
+        'PCB Layout & Schematic Capture',
+        'Arduino & ESP32 Integration',
+        'Sensor Interfacing & Firmware',
+        'Wireless & IoT Connectivity',
+      ],
+    },
+    'prototyping': {
+      title: 'Rapid Prototyping',
+      desc: 'Accelerate your product development cycle. We integrate hardware and software into functional MVPs ready for testing, investor demos, and manufacturing hand-off.',
+      image: 'prototype-promo.jpg',
+      tag: 'Product Dev',
+      features: [
+        'Full-stack MVP Development',
+        'Enclosure Design & Fabrication',
+        'Firmware Programming',
+        'System Integration Testing',
+      ],
+    },
+    'software': {
+      title: 'Software Development',
+      desc: 'Robust software tailored to your exact needs. From simple automation scripts to complex enterprise-grade web and mobile applications, we code for performance, scalability, and maintainability.',
+      image: 'programming.jpg',
+      tag: 'Full Stack',
+      features: [
+        'Web Applications (React, Node.js)',
+        'Mobile App Development',
+        'Desktop Software (Java, C++)',
+        'Automation Scripts (Python)',
+      ],
+    },
+  };
+
+  const modalBackdrop = document.getElementById('service-modal');
+  const modalImage    = document.getElementById('modal-image');
+  const modalTag      = document.getElementById('modal-tag');
+  const modalTitle    = document.getElementById('modal-title');
+  const modalDesc     = document.getElementById('modal-desc');
+  const modalFeatures = document.getElementById('modal-features');
+  const closeModalBtn = document.getElementById('close-modal');
+
+  function openModal(id) {
+    const data = servicesData[id];
+    if (!data || !modalBackdrop) return;
+
+    modalImage.src      = data.image;
+    modalTag.textContent    = data.tag;
+    modalTitle.textContent  = data.title;
+    modalDesc.textContent   = data.desc;
+    modalFeatures.innerHTML = data.features
+      .map(f => `<li>${f}</li>`)
+      .join('');
+
+    modalBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modalBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('click', () => openModal(card.dataset.service));
+  });
+
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+  if (modalBackdrop) {
+    modalBackdrop.addEventListener('click', e => {
+      if (e.target === modalBackdrop) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Expose for footer links
+  window.scrollToService = (id) => {
+    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => openModal(id), 700);
+  };
+
+  /* =============================================
+     8. PORTFOLIO SLIDER
+     ============================================= */
+  const track    = document.getElementById('portfolio-track');
+  const btnLeft  = document.getElementById('slide-left');
+  const btnRight = document.getElementById('slide-right');
+
+  if (track && btnLeft && btnRight) {
+    const scrollAmount = () => track.querySelector('.portfolio-item')?.offsetWidth + 24 || 420;
+
+    btnRight.addEventListener('click', () => {
+      track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+    });
+    btnLeft.addEventListener('click', () => {
+      track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+    });
+  }
+
+  /* =============================================
+     9. CTA BUTTON RIPPLE
+     ============================================= */
+  document.querySelectorAll('.btn-primary, .nav-cta, .contact-big-cta').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.style.cssText = `
+        position:absolute;
+        border-radius:50%;
+        background:rgba(255,255,255,0.3);
+        width:4px;height:4px;
+        top:${e.clientY - rect.top}px;
+        left:${e.clientX - rect.left}px;
+        transform:scale(0);
+        pointer-events:none;
+      `;
+      this.style.position = 'relative';
+      this.style.overflow = 'hidden';
+      this.appendChild(ripple);
+      anime({
+        targets: ripple,
+        scale: [0, 100],
+        opacity: [1, 0],
+        duration: 600,
+        easing: 'easeOutQuad',
+        complete: () => ripple.remove(),
+      });
+    });
+  });
+
+  /* =============================================
+     10. HERO TYPEWRITER (secondary line)
+     ============================================= */
+  const typewriterEl = document.getElementById('hero-typewriter');
+  if (typewriterEl) {
+    const words = ['Code.', 'Create.', 'Innovate.', 'Deliver.'];
+    let wi = 0, ci = 0, deleting = false;
+
+    function tick() {
+      const word = words[wi];
+      if (deleting) {
+        typewriterEl.textContent = word.substring(0, ci--);
+        if (ci < 0) {
+          deleting = false;
+          wi = (wi + 1) % words.length;
+          setTimeout(tick, 400);
+          return;
+        }
+        setTimeout(tick, 60);
+      } else {
+        typewriterEl.textContent = word.substring(0, ++ci);
+        if (ci === word.length) {
+          deleting = true;
+          setTimeout(tick, 1800);
+          return;
+        }
+        setTimeout(tick, 120);
+      }
+    }
+    setTimeout(tick, 1000);
+  }
+
+}); // end DOMContentLoaded
