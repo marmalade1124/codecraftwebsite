@@ -4,650 +4,808 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Code&amp;Craft | Design. Code. Create.</title>
-  <meta name="description" content="Code&amp;Craft — Premium software development, 3D design, electronics, and rapid prototyping. We turn complex ideas into elegant, precise solutions." />
+  <meta name="description" content="Custom software development, 3D design, electronics, and rapid prototyping. We turn complex ideas into elegant, precise physical and digital solutions." />
   <link rel="icon" type="image/png" href="logo.png" />
 
-  <!-- Fonts -->
+  <!-- Google Fonts: Space Grotesk, Inter & Space Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
 
-  <!-- Material Icons -->
+  <!-- Material Symbols Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
-  <!-- anime.js v4 -->
-  <script src="https://cdn.jsdelivr.net/npm/animejs@4/lib/anime.min.js"></script>
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.23/bundled/lenis.min.js"></script>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css" />
+  <!-- anime.js v3 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css?v=5" />
 </head>
+<body class="lenis lenis-smooth">
 
-<body>
-
-  <!-- ========================================
-       NAVIGATION
-       ======================================== -->
-  <nav id="cc-nav" aria-label="Main navigation">
+  <!-- =====================================================
+       NAVBAR (Podium Pill & Collapsible Menu Trigger)
+       ===================================================== -->
+  <header id="cc-nav-wrapper" class="nav-wrapper" data-nav-status="closed">
     <div class="container nav-inner">
+
       <!-- Logo -->
-      <a href="#" class="nav-logo">
+      <a href="#" class="nav-brand" aria-label="Code&amp;Craft Home">
         <img src="logo.png" alt="Code&amp;Craft Logo" />
-        Code&amp;Craft
+        <span class="brand-name">Code&amp;Craft</span>
       </a>
 
-      <!-- Desktop Links -->
-      <ul class="nav-links">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#portfolio">Work</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <!-- Desktop Nav Items -->
+      <nav class="nav-menu-inline hide-mobile">
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#difference" class="nav-link">The Difference</a>
+        <a href="#process" class="nav-link">Process</a>
+        <a href="#portfolio" class="nav-link">Work</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+      </nav>
 
-      <!-- CTA + Hamburger -->
-      <div style="display:flex;align-items:center;gap:1rem;">
-        <a href="https://codecraftmanagement.vercel.app/inquiry?source=CC-10" target="_blank" class="nav-cta" id="nav-cta-btn">
-          Get a Quote
+      <!-- Action & Mobile Toggle -->
+      <div class="nav-actions">
+        <a href="https://codecraftmanagement.vercel.app/inquiry?source=CC-10" target="_blank" class="button-primary-pill" id="nav-cta-btn">
+          <span>Start your quote</span>
+          <svg class="button-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </a>
-        <button id="cc-hamburger" class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
-          <span></span><span></span><span></span>
+
+        <button id="cc-burger" class="nav-burger-btn" aria-label="Toggle Navigation Menu">
+          <span class="burger-bar"></span>
+          <span class="burger-bar"></span>
+          <span class="burger-bar"></span>
         </button>
       </div>
+
     </div>
-  </nav>
 
-  <!-- Mobile Menu Overlay -->
-  <div id="cc-mobile-menu" class="mobile-menu" aria-hidden="true">
-    <a href="#services">Services</a>
-    <a href="#process">Process</a>
-    <a href="#portfolio">Work</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#contact">Contact</a>
-    <a href="https://codecraftmanagement.vercel.app/inquiry?source=CC-10" target="_blank" class="mobile-cta">Get a Quote</a>
-  </div>
-
-  <!-- ========================================
-       HERO
-       ======================================== -->
-  <section id="hero">
-    <!-- Background -->
-    <div class="hero-grid-bg" aria-hidden="true"></div>
-    <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
-    <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
-
-    <div class="container hero-inner">
-      <!-- Left: Text Content -->
-      <div class="hero-content">
-        <!-- Badge -->
-        <div class="hero-badge">
-          <span class="hero-badge-dot" aria-hidden="true"></span>
-          Available for new projects
-        </div>
-
-        <!-- Heading with word-wrap spans for anime.js -->
-        <h1 class="hero-heading">
-          <span class="line">
-            <span class="word-wrap">Design.</span>
-          </span>
-          <span class="line">
-            <span class="word-wrap hero-accent" id="hero-typewriter">Code.</span>
-          </span>
-          <span class="line">
-            <span class="word-wrap">Create.</span>
-          </span>
-        </h1>
-
-        <p class="hero-subtext">
-          Comprehensive solutions for the digital age — from CAD modeling and 3D printing to full-stack web development and IoT systems. We turn complex problems into elegant implementations.
-        </p>
-
-        <div class="hero-actions">
-          <a href="https://codecraftmanagement.vercel.app/inquiry?source=CC-10" target="_blank" class="btn-primary" id="hero-cta-btn">
-            <span class="material-symbols-outlined" style="font-size:18px;">rocket_launch</span>
-            Start a Project
-          </a>
-          <a href="#services" class="btn-ghost">
-            <span class="material-symbols-outlined" style="font-size:18px;">layers</span>
-            View Services
-          </a>
-        </div>
-
-        <!-- Stats Row -->
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <div class="hero-stat-num">
-              <span data-count="50">0</span><span>+</span>
-            </div>
-            <div class="hero-stat-label">Projects Delivered</div>
+    <!-- Fullscreen Menu Drawer -->
+    <div id="cc-menu-drawer" class="nav-drawer" aria-hidden="true">
+      <div class="container drawer-content">
+        <div class="drawer-grid">
+          <div class="drawer-links-col">
+            <span class="drawer-label">NAVIGATION</span>
+            <ul class="drawer-nav-list">
+              <li><a href="#services" class="drawer-nav-item" data-drawer-link><span class="drawer-num">01</span> Services</a></li>
+              <li><a href="#difference" class="drawer-nav-item" data-drawer-link><span class="drawer-num">02</span> The Difference</a></li>
+              <li><a href="#process" class="drawer-nav-item" data-drawer-link><span class="drawer-num">03</span> Process</a></li>
+              <li><a href="#portfolio" class="drawer-nav-item" data-drawer-link><span class="drawer-num">04</span> Portfolio</a></li>
+              <li><a href="#pricing" class="drawer-nav-item" data-drawer-link><span class="drawer-num">05</span> Pricing</a></li>
+              <li><a href="#contact" class="drawer-nav-item" data-drawer-link><span class="drawer-num">06</span> Contact</a></li>
+            </ul>
           </div>
-          <div class="hero-stat">
-            <div class="hero-stat-num">
-              <span data-count="5">0</span><span>+</span>
-            </div>
-            <div class="hero-stat-label">Services Offered</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-num">
-              <span data-count="100">0</span><span>%</span>
-            </div>
-            <div class="hero-stat-label">Client Satisfaction</div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Right: Terminal Card -->
-      <div class="hero-terminal" aria-hidden="true">
-        <div class="terminal-glow"></div>
-        <div class="terminal-card">
-          <div class="terminal-header">
-            <div class="terminal-dots">
-              <div class="terminal-dot red"></div>
-              <div class="terminal-dot yellow"></div>
-              <div class="terminal-dot green"></div>
+          <div class="drawer-info-col">
+            <div class="drawer-info-block">
+              <span class="drawer-label">INQUIRIES &amp; SUPPORT</span>
+              <a href="mailto:cc.codecraft3d@gmail.com" class="drawer-info-val">cc.codecraft3d@gmail.com</a>
+              <a href="tel:+639192471080" class="drawer-info-val">+63 919 247 1080</a>
             </div>
-            <div class="terminal-title">app.tsx — Code&amp;Craft</div>
+
+            <div class="drawer-info-block">
+              <span class="drawer-label">CONNECT</span>
+              <a href="https://www.facebook.com/profile.php?id=61577838842721" target="_blank" rel="noopener" class="drawer-info-val">Facebook @Code&amp;Craft</a>
+            </div>
+
+            <a href="https://codecraftmanagement.vercel.app/inquiry?source=CC-10" target="_blank" class="button-primary-pill full-width">
+              <span>Start your quote &rarr;</span>
+            </a>
           </div>
-          <div class="terminal-body" id="terminal-code-body"></div>
         </div>
       </div>
     </div>
-  </section>
+  </header>
 
-  <!-- ========================================
-       SERVICES
-       ======================================== -->
-  <section id="services">
-    <div class="container">
-      <div class="services-header">
-        <div class="will-animate">
-          <div class="section-label">What We Do</div>
-          <h2 class="section-heading">Engineering Excellence</h2>
-          <p class="section-desc">We architect robust solutions using the latest technologies — successful project delivery in both hardware and software domains.</p>
+  <!-- =====================================================
+       MAIN CONTENT WRAPPER
+       ===================================================== -->
+  <main class="main-wrapper">
+
+    <!-- ===================================================
+         HERO SECTION (Two-Tone Paper Yellow + Dark Navy)
+         =================================================== -->
+    <header class="section-hero">
+
+      <!-- Hero Top (Paper Yellow Background) -->
+      <div class="hero-top-section background-color-paper-yellow">
+        <div class="container container-large">
+          <div class="hero-grid">
+            <div class="hero-title-wrapper">
+              <h1 class="hero-heading" sa-lines>
+                Faster is better.
+              </h1>
+            </div>
+            <div class="hero-subtitle-wrapper">
+              <p class="hero-subtitle" sa-lines>
+                Higher quality custom hardware &amp; digital solutions with shorter lead times. Code&amp;Craft is your design-build partner shipping 3D prints, electronics, and full-stack software with absolute precision.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Bento-style Service Grid -->
-      <div class="services-grid" data-stagger>
+      <!-- Hero Bottom (Dark Navy Background with Feature Dividers & Interactive Terminal) -->
+      <div class="hero-bottom-section background-color-dark-grey text-color-white">
+        <div class="container container-large">
+          <div class="hero-bottom-grid">
 
-        <!-- Card 1: 3D Design (large) -->
-        <div class="service-card large" data-service="3d-design" role="button" tabindex="0" aria-label="3D Design & Print service">
-          <div class="service-card-img">
-            <img src="3d-design.jpg" alt="3D Design & Printing" loading="lazy" />
-          </div>
-          <div class="service-card-body">
-            <div class="service-num">01</div>
-            <div class="service-icon orange">
-              <span class="material-symbols-outlined">layers</span>
+            <!-- Left Column: Partners Spec List -->
+            <div class="hero-bottom-content">
+              <div class="category-label">
+                <span class="category-square"></span>
+                <span class="label-style-1">Your hardware &amp; software design-build partner</span>
+              </div>
+
+              <div class="hero-feature-list" sa-children>
+                <div class="feature-item">
+                  <div class="horizontal-line light" data-animate-line></div>
+                  <div class="feature-item-text">Concept to prototype in days</div>
+                </div>
+                <div class="feature-item">
+                  <div class="horizontal-line light" data-animate-line></div>
+                  <div class="feature-item-text">Fast, intuitive custom quotes</div>
+                </div>
+                <div class="feature-item">
+                  <div class="horizontal-line light" data-animate-line></div>
+                  <div class="feature-item-text">High-precision CAD &amp; 3D printing</div>
+                </div>
+                <div class="feature-item">
+                  <div class="horizontal-line light" data-animate-line></div>
+                  <div class="feature-item-text">Full-stack web &amp; IoT code</div>
+                </div>
+              </div>
             </div>
-            <h3>3D Design &amp; Print</h3>
-            <p>From CAD modeling to high-precision 3D printing. We bring physical prototypes to life using Fusion 360 and AutoCAD — PLA, PETG, and ABS filaments.</p>
-            <div class="service-tags">
-              <span class="service-tag">Fusion 360</span>
-              <span class="service-tag">AutoCAD</span>
-              <span class="service-tag">Prototyping</span>
+
+            <!-- Right Column: Interactive Code Engine Mockup -->
+            <div class="hero-atf-visual">
+              <div class="atf-terminal-box">
+                <div class="atf-terminal-header">
+                  <div class="atf-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                  </div>
+                  <span class="atf-title">codecraft_build_pipeline.ts</span>
+                </div>
+                <div class="atf-terminal-body" id="hero-code-stream"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Hero Metrics Strip -->
+          <div class="horizontal-line light" data-animate-line style="margin-top: 3.5rem;"></div>
+          <div class="hero-metrics-strip">
+            <div class="metric-block">
+              <div class="metric-number"><span data-count="50">0</span>+</div>
+              <div class="metric-label">Projects Delivered</div>
+            </div>
+            <div class="metric-block">
+              <div class="metric-number"><span data-count="5">0</span></div>
+              <div class="metric-label">Core Disciplines</div>
+            </div>
+            <div class="metric-block">
+              <div class="metric-number"><span data-count="100">0</span>%</div>
+              <div class="metric-label">Client Satisfaction</div>
+            </div>
+            <div class="metric-block">
+              <div class="metric-number">24h</div>
+              <div class="metric-label">Quote Turnaround</div>
             </div>
           </div>
-          <div class="service-arrow">
-            <span class="material-symbols-outlined" style="font-size:14px;">arrow_forward</span>
+
+        </div>
+      </div>
+    </header>
+
+
+    <!-- ===================================================
+         TRUSTED BY / MARQUEE BAR SECTION
+         =================================================== -->
+    <section class="section-marquee background-color-grey-150">
+      <div class="container container-large">
+        <div class="marquee-inner">
+          <div class="marquee-label">
+            <span class="label-style-1">Empowering innovation for startups, STEM, and enterprise</span>
+          </div>
+
+          <div class="marquee-wrapper">
+            <div class="marquee-track">
+              <span class="marquee-item">3D DESIGN &amp; CAD</span>
+              <span class="marquee-bullet">&bull;</span>
+              <span class="marquee-item">ELECTRONICS &amp; IOT</span>
+              <span class="marquee-bullet">&bull;</span>
+              <span class="marquee-item">SOFTWARE DEV</span>
+              <span class="marquee-bullet">&bull;</span>
+              <span class="marquee-item">RAPID PROTOTYPING</span>
+              <span class="marquee-bullet">&bull;</span>
+              <span class="marquee-item">DIGITAL ARTS &amp; BRANDING</span>
+              <span class="marquee-bullet">&bull;</span>
+              <!-- Duplicate for seamless loop -->
+              <span class="marquee-item">3D DESIGN &amp; CAD</span>
+              <span class="marquee-bullet">&bull;</span>
+              <span class="marquee-item">ELECTRONICS &amp; IOT</span>
+              <span class="marquee-bullet">&bull;</span>
+              <span class="marquee-item">SOFTWARE DEV</span>
+              <span class="marquee-bullet">&bull;</span>
+              <span class="marquee-item">RAPID PROTOTYPING</span>
+              <span class="marquee-bullet">&bull;</span>
+              <span class="marquee-item">DIGITAL ARTS &amp; BRANDING</span>
+              <span class="marquee-bullet">&bull;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================
+         "THE DIFFERENCE" / BENTO SHOWCASE SECTION
+         =================================================== -->
+    <section id="difference" class="section-difference background-color-white">
+      <div class="container container-large">
+        <div class="difference-header-grid">
+          <div class="diff-title-col">
+            <h2 class="heading-large" sa-lines>Speed is just the beginning.</h2>
+          </div>
+          <div class="diff-media-col">
+            <div class="visual-media-box">
+              <img src="assets/portfolio/case-cad-model.png" alt="CAD Model Render" class="media-fit-img" loading="lazy" />
+              <div class="media-overlay-tag">CAD Precision</div>
+            </div>
+          </div>
+          <div class="diff-media-col">
+            <div class="visual-media-box">
+              <img src="assets/portfolio/rpi-case-internal.jpg" alt="3D Printed Prototype" class="media-fit-img" loading="lazy" />
+              <div class="media-overlay-tag">Physical Fabrication</div>
+            </div>
           </div>
         </div>
 
-        <!-- Card 2: Digital Arts -->
-        <div class="service-card" data-service="digital-arts" role="button" tabindex="0" aria-label="Digital Arts service">
-          <div class="service-card-img">
-            <img src="digital-design.jpg" alt="Digital Arts" loading="lazy" />
-          </div>
-          <div class="service-card-body">
-            <div class="service-num">02</div>
-            <div class="service-icon navy">
-              <span class="material-symbols-outlined">palette</span>
-            </div>
-            <h3>Digital Arts</h3>
-            <p>UI/UX, Branding, and Motion Graphics. Pixel-perfect implementations that elevate your visual identity.</p>
-            <div class="service-tags">
-              <span class="service-tag">UI/UX</span>
-              <span class="service-tag">Branding</span>
+        <div class="horizontal-line" data-animate-line style="margin: 4rem 0;"></div>
+
+        <!-- The CodeCraft Difference Checklist -->
+        <div class="difference-sub-grid">
+          <div class="diff-label-col">
+            <div class="category-label">
+              <span class="category-square"></span>
+              <span class="label-style-1">The Code&amp;Craft Difference</span>
             </div>
           </div>
-          <div class="service-arrow">
-            <span class="material-symbols-outlined" style="font-size:14px;">arrow_forward</span>
+
+          <div class="diff-cards-grid">
+            <div class="diff-card" sa-block>
+              <div class="diff-card-num">01</div>
+              <h3 class="diff-card-title">Unified Hardware &amp; Software</h3>
+              <p class="diff-card-body">We bridge the gap between physical assembly and digital code under one roof. No misaligned specifications or fragmented vendors.</p>
+            </div>
+
+            <div class="diff-card" sa-block>
+              <div class="diff-card-num">02</div>
+              <h3 class="diff-card-title">Sub-Millimeter CAD Accuracy</h3>
+              <p class="diff-card-body">Using Autodesk Fusion 360 and custom parametric workflows, every part is built to tight engineering tolerances.</p>
+            </div>
+
+            <div class="diff-card" sa-block>
+              <div class="diff-card-num">03</div>
+              <h3 class="diff-card-title">Rapid Iteration Cycles</h3>
+              <p class="diff-card-body">Move from initial consultation to functional 3D prototype or working software build in days, not months.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================
+         SERVICES EDITORIAL LIST SECTION
+         =================================================== -->
+    <section id="services" class="section-services background-color-paper-yellow">
+      <div class="container container-large">
+
+        <!-- 3-Column Header Grid -->
+        <div class="section-header-grid">
+          <div class="header-col-label">
+            <div class="category-label">
+              <span class="category-square"></span>
+              <span class="label-style-1">Core Capabilities</span>
+            </div>
+          </div>
+
+          <div class="header-col-title">
+            <h2 class="heading-large" sa-lines>Engineering<br />excellence.</h2>
+          </div>
+
+          <div class="header-col-desc">
+            <p class="paragraph-lead">
+              Comprehensive hardware and software solutions — from single rapid prototype parts to enterprise software platforms.
+            </p>
           </div>
         </div>
 
-        <!-- Card 3: Electronics & IoT -->
-        <div class="service-card" data-service="electronics" role="button" tabindex="0" aria-label="Electronics and IoT service">
-          <div class="service-card-img">
-            <img src="logic-circuit.jpg" alt="Electronics & IoT" loading="lazy" />
-          </div>
-          <div class="service-card-body">
-            <div class="service-num">03</div>
-            <div class="service-icon emerald">
-              <span class="material-symbols-outlined">memory</span>
+        <div class="horizontal-line" data-animate-line style="margin-bottom: 2rem;"></div>
+
+        <!-- Interactive Editorial List -->
+        <div class="services-editorial-list" id="services-list">
+
+          <!-- Row 1 -->
+          <div class="service-editorial-row" data-service="3d-design" role="button" tabindex="0">
+            <div class="service-row-index">01</div>
+            <div class="service-row-title">3D Design &amp; Printing</div>
+            <div class="service-row-tags">
+              <span class="tag-pill">Fusion 360</span>
+              <span class="tag-pill">AutoCAD</span>
+              <span class="tag-pill">PLA / PETG / ABS</span>
             </div>
-            <h3>Electronics &amp; IoT</h3>
-            <p>PCB design and logic circuits. Integration with Arduino, ESP32, and custom sensor systems.</p>
-            <div class="service-tags">
-              <span class="service-tag">PCB</span>
-              <span class="service-tag">Arduino</span>
+            <div class="service-row-action">
+              <span class="action-arrow">&rarr;</span>
+            </div>
+            <div class="horizontal-line" data-animate-line></div>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="service-editorial-row" data-service="digital-arts" role="button" tabindex="0">
+            <div class="service-row-index">02</div>
+            <div class="service-row-title">Digital Arts &amp; Branding</div>
+            <div class="service-row-tags">
+              <span class="tag-pill">UI/UX</span>
+              <span class="tag-pill">Brand Identity</span>
+              <span class="tag-pill">Motion Graphics</span>
+            </div>
+            <div class="service-row-action">
+              <span class="action-arrow">&rarr;</span>
+            </div>
+            <div class="horizontal-line" data-animate-line></div>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="service-editorial-row" data-service="electronics" role="button" tabindex="0">
+            <div class="service-row-index">03</div>
+            <div class="service-row-title">Electronics &amp; IoT</div>
+            <div class="service-row-tags">
+              <span class="tag-pill">PCB Design</span>
+              <span class="tag-pill">Arduino</span>
+              <span class="tag-pill">ESP32 Firmware</span>
+            </div>
+            <div class="service-row-action">
+              <span class="action-arrow">&rarr;</span>
+            </div>
+            <div class="horizontal-line" data-animate-line></div>
+          </div>
+
+          <!-- Row 4 -->
+          <div class="service-editorial-row" data-service="prototyping" role="button" tabindex="0">
+            <div class="service-row-index">04</div>
+            <div class="service-row-title">Rapid Prototyping</div>
+            <div class="service-row-tags">
+              <span class="tag-pill">Full Hardware MVP</span>
+              <span class="tag-pill">Robotics</span>
+              <span class="tag-pill">Enclosure Assembly</span>
+            </div>
+            <div class="service-row-action">
+              <span class="action-arrow">&rarr;</span>
+            </div>
+            <div class="horizontal-line" data-animate-line></div>
+          </div>
+
+          <!-- Row 5 -->
+          <div class="service-editorial-row" data-service="software" role="button" tabindex="0">
+            <div class="service-row-index">05</div>
+            <div class="service-row-title">Software Development</div>
+            <div class="service-row-tags">
+              <span class="tag-pill">React / Node.js</span>
+              <span class="tag-pill">Python Scripts</span>
+              <span class="tag-pill">Java / C++</span>
+            </div>
+            <div class="service-row-action">
+              <span class="action-arrow">&rarr;</span>
+            </div>
+            <div class="horizontal-line" data-animate-line></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================
+         PROCESS SECTION (Dark Theme)
+         =================================================== -->
+    <section id="process" class="section-process background-color-dark-grey text-color-white">
+      <div class="container container-large">
+
+        <div class="section-header-grid">
+          <div class="header-col-label">
+            <div class="category-label">
+              <span class="category-square orange"></span>
+              <span class="label-style-1">Our Process</span>
             </div>
           </div>
-          <div class="service-arrow">
-            <span class="material-symbols-outlined" style="font-size:14px;">arrow_forward</span>
+
+          <div class="header-col-title">
+            <h2 class="heading-large text-color-white" sa-lines>From concept<br />to completion.</h2>
+          </div>
+
+          <div class="header-col-desc">
+            <p class="paragraph-lead text-muted-white">
+              A transparent, structured workflow engineered to take your idea from initial sketch to fully functional delivery without surprises.
+            </p>
           </div>
         </div>
 
-        <!-- Card 4: Rapid Prototyping (large) -->
-        <div class="service-card large" data-service="prototyping" role="button" tabindex="0" aria-label="Rapid Prototyping service">
-          <div class="service-card-img">
-            <img src="prototype-promo.jpg" alt="Rapid Prototyping" loading="lazy" />
-          </div>
-          <div class="service-card-body">
-            <div class="service-num">04</div>
-            <div class="service-icon rose">
-              <span class="material-symbols-outlined">precision_manufacturing</span>
-            </div>
-            <h3>Rapid Prototyping</h3>
-            <p>Accelerate innovation with integrated hardware and software prototyping. Perfect for MVP testing, thesis projects, and client demonstrations.</p>
-            <div class="service-tags">
-              <span class="service-tag">MVP</span>
-              <span class="service-tag">Robotics</span>
-              <span class="service-tag">Integration</span>
-            </div>
-          </div>
-          <div class="service-arrow">
-            <span class="material-symbols-outlined" style="font-size:14px;">arrow_forward</span>
-          </div>
-        </div>
+        <div class="horizontal-line light" data-animate-line style="margin-bottom: 3.5rem;"></div>
 
-        <!-- Card 5: Software Development -->
-        <div class="service-card" data-service="software" role="button" tabindex="0" aria-label="Software Development service">
-          <div class="service-card-img">
-            <img src="programming.jpg" alt="Software Development" loading="lazy" />
+        <!-- 4 Steps Column Grid -->
+        <div class="process-steps-grid">
+          <div class="process-step-col" sa-block>
+            <div class="process-num">01</div>
+            <h3 class="process-heading">Consultation &amp; Scope</h3>
+            <p class="process-body">We discuss specs, CAD parameters, hardware requirements, or software user stories to outline a clear project scope and delivery timeline.</p>
           </div>
-          <div class="service-card-body">
-            <div class="service-num">05</div>
-            <div class="service-icon purple">
-              <span class="material-symbols-outlined">terminal</span>
-            </div>
-            <h3>Software Development</h3>
-            <p>Custom apps in Java, Python, and C++. Web, Desktop, and Mobile solutions built for performance and scalability.</p>
-            <div class="service-tags">
-              <span class="service-tag">React</span>
-              <span class="service-tag">Python</span>
-              <span class="service-tag">Node.js</span>
-            </div>
+
+          <div class="process-step-col" sa-block>
+            <div class="process-num">02</div>
+            <h3 class="process-heading">Design &amp; Schematic</h3>
+            <p class="process-body">Our team builds 3D models in Fusion 360, designs PCB schematics, or crafts UI wireframes for your exact review and sign-off.</p>
           </div>
-          <div class="service-arrow">
-            <span class="material-symbols-outlined" style="font-size:14px;">arrow_forward</span>
+
+          <div class="process-step-col" sa-block>
+            <div class="process-num">03</div>
+            <h3 class="process-heading">Prototyping &amp; Build</h3>
+            <p class="process-body">Precision 3D printing on calibrated machines, PCB soldering, or full-stack software development with continuous testing cycles.</p>
+          </div>
+
+          <div class="process-step-col" sa-block>
+            <div class="process-num">04</div>
+            <h3 class="process-heading">QA &amp; Delivery</h3>
+            <p class="process-body">Rigorous physical assembly inspection and software QA, followed by complete file hand-off and post-delivery support.</p>
           </div>
         </div>
 
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ========================================
-       PROCESS / HOW IT WORKS
-       ======================================== -->
-  <section id="process">
-    <div class="container">
-      <div class="process-header">
-        <div class="section-label">Our Process</div>
-        <h2 class="section-heading will-animate">From Idea to Reality</h2>
-        <p class="section-desc will-animate" style="margin:0 auto;text-align:center;">Our streamlined process ensures your project moves from concept to completion with precision and transparency.</p>
-      </div>
 
-      <div class="process-steps">
+    <!-- ===================================================
+         PORTFOLIO SECTION
+         =================================================== -->
+    <section id="portfolio" class="section-portfolio background-color-white">
+      <div class="container container-large">
 
-        <div class="process-step">
-          <div class="step-node">
-            <span class="material-symbols-outlined">chat</span>
-            <div class="step-node-num">01</div>
+        <div class="portfolio-top-bar">
+          <div>
+            <div class="category-label">
+              <span class="category-square"></span>
+              <span class="label-style-1">Recent Work</span>
+            </div>
+            <h2 class="heading-large" sa-lines>Built with precision.</h2>
           </div>
-          <h3>Consultation</h3>
-          <p>We discuss your requirements and define the project scope and deliverables.</p>
-        </div>
 
-        <div class="process-step">
-          <div class="step-node">
-            <span class="material-symbols-outlined">design_services</span>
-            <div class="step-node-num">02</div>
-          </div>
-          <h3>Design</h3>
-          <p>Our team creates schematics, models, or UI wireframes for your review.</p>
-        </div>
-
-        <div class="process-step">
-          <div class="step-node">
-            <span class="material-symbols-outlined">precision_manufacturing</span>
-            <div class="step-node-num">03</div>
-          </div>
-          <h3>Prototyping</h3>
-          <p>We build and test the initial version to ensure full functionality.</p>
-        </div>
-
-        <div class="process-step">
-          <div class="step-node">
-            <span class="material-symbols-outlined">rocket_launch</span>
-            <div class="step-node-num">04</div>
-          </div>
-          <h3>Delivery</h3>
-          <p>Final product delivery with full documentation and post-launch support.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================
-       PORTFOLIO / RECENT WORK
-       ======================================== -->
-  <section id="portfolio">
-    <div class="container">
-      <div class="portfolio-header">
-        <div class="will-animate">
-          <div class="section-label">Recent Work</div>
-          <h2 class="section-heading">Built with Precision</h2>
-          <p class="section-desc">Explore our latest success stories and delivered products.</p>
-        </div>
-        <div class="portfolio-nav-btns">
-          <button id="slide-left" class="portfolio-btn" aria-label="Previous project">
-            <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
-          </button>
-          <button id="slide-right" class="portfolio-btn" aria-label="Next project">
-            <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="portfolio-track" id="portfolio-track" role="list">
-
-        <div class="portfolio-item" role="listitem">
-          <div class="portfolio-img-wrap">
-            <div class="bg-img" style="background-image: url('assets/portfolio/rpi-case-internal.jpg');" role="img" aria-label="Custom Enclosure project"></div>
-          </div>
-          <div class="portfolio-overlay"></div>
-          <div class="portfolio-meta">
-            <div class="portfolio-tag">Hardware</div>
-            <h3>Custom Enclosure</h3>
-            <p>Precision 3D printed housing for Raspberry Pi project.</p>
+          <div class="portfolio-slider-controls">
+            <button id="slide-prev" class="slider-btn" aria-label="Previous Slide">&larr;</button>
+            <button id="slide-next" class="slider-btn" aria-label="Next Slide">&rarr;</button>
           </div>
         </div>
 
-        <div class="portfolio-item" role="listitem">
-          <div class="portfolio-img-wrap">
-            <div class="bg-img" style="background-image: url('assets/portfolio/case-cad-model.png');" role="img" aria-label="Industrial Modeling project"></div>
-          </div>
-          <div class="portfolio-overlay"></div>
-          <div class="portfolio-meta">
-            <div class="portfolio-tag">CAD Design</div>
-            <h3>Industrial Modeling</h3>
-            <p>Professional CAD modeling for manufacturing and assembly.</p>
-          </div>
-        </div>
+        <div class="horizontal-line" data-animate-line style="margin: 2.5rem 0;"></div>
 
-        <div class="portfolio-item" role="listitem">
-          <div class="portfolio-img-wrap">
-            <div class="bg-img" style="background-image: url('assets/portfolio/exploded-view.png');" role="img" aria-label="Technical Assembly project"></div>
-          </div>
-          <div class="portfolio-overlay"></div>
-          <div class="portfolio-meta">
-            <div class="portfolio-tag">Visualization</div>
-            <h3>Technical Assembly</h3>
-            <p>Complex assembly visualization and planning for manufacturing.</p>
-          </div>
-        </div>
+        <!-- Carousel Track -->
+        <div class="portfolio-carousel-track" id="portfolio-track">
 
-        <div class="portfolio-item" role="listitem">
-          <div class="portfolio-img-wrap">
-            <div class="bg-img" style="background-image: url('assets/portfolio/client-delivery-2.jpg');" role="img" aria-label="Prototype Units project"></div>
+          <div class="portfolio-card">
+            <div class="portfolio-card-media" style="background-image: url('assets/portfolio/rpi-case-internal.jpg');"></div>
+            <div class="portfolio-card-info">
+              <span class="card-tag">HARDWARE FABRICATION</span>
+              <h3 class="card-title">Custom RPi Enclosure</h3>
+              <p class="card-desc">Sub-millimeter 3D printed housing with internal mounting bosses and thermal ventilation slots.</p>
+            </div>
           </div>
-          <div class="portfolio-overlay"></div>
-          <div class="portfolio-meta">
-            <div class="portfolio-tag">Delivery</div>
-            <h3>Prototype Units</h3>
-            <p>Successful handover of prototype units for client demonstration.</p>
+
+          <div class="portfolio-card">
+            <div class="portfolio-card-media" style="background-image: url('assets/portfolio/case-cad-model.png');"></div>
+            <div class="portfolio-card-info">
+              <span class="card-tag">CAD MODELING</span>
+              <h3 class="card-title">Industrial Mechanical Design</h3>
+              <p class="card-desc">Parametric CAD model designed in Fusion 360 for precision manufacturing and tooling verification.</p>
+            </div>
           </div>
+
+          <div class="portfolio-card">
+            <div class="portfolio-card-media" style="background-image: url('assets/portfolio/exploded-view.png');"></div>
+            <div class="portfolio-card-info">
+              <span class="card-tag">ENGINEERING DOCS</span>
+              <h3 class="card-title">Assembly Exploded View</h3>
+              <p class="card-desc">Complete multi-part exploded rendering for manufacturing assembly and maintenance documentation.</p>
+            </div>
+          </div>
+
+          <div class="portfolio-card">
+            <div class="portfolio-card-media" style="background-image: url('assets/portfolio/client-delivery-2.jpg');"></div>
+            <div class="portfolio-card-info">
+              <span class="card-tag">DELIVERY &amp; HANDOVER</span>
+              <h3 class="card-title">Prototype Units Batch</h3>
+              <p class="card-desc">Finished client delivery of prototype hardware enclosures and integrated electronics ready for live field demo.</p>
+            </div>
+          </div>
+
         </div>
 
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ========================================
-       PRICING
-       ======================================== -->
-  <section id="pricing">
-    <div class="container">
-      <div class="pricing-header">
-        <div class="section-label">Investment</div>
-        <h2 class="section-heading will-animate">Transparent Pricing</h2>
-        <p class="section-desc will-animate" style="margin:0 auto;text-align:center;">Fair rates for professional engineering and design services. No hidden fees.</p>
-      </div>
 
-      <div class="pricing-grid" data-stagger>
+    <!-- ===================================================
+         PRICING SECTION (Podium-style Dark Grid Table)
+         =================================================== -->
+    <section id="pricing" class="section-pricing background-color-dark-grey text-color-white">
+      <div class="container container-large">
 
-        <!-- 3D Design & Printing -->
-        <div class="pricing-card">
-          <div class="pricing-card-title">3D Design &amp; Printing</div>
-          <div class="pricing-card-desc">Precision modeling and filament printing.</div>
-          <div class="pricing-rows">
-            <div class="pricing-row">
-              <span class="pricing-row-label">Filament Printing</span>
-              <span class="pricing-row-value accent">₱2 / g</span>
-            </div>
-            <div class="pricing-row">
-              <span class="pricing-row-label">Printing Time</span>
-              <span class="pricing-row-value">₱55 / hr</span>
-            </div>
-            <div class="pricing-row">
-              <span class="pricing-row-label">Minimum Fee</span>
-              <span class="pricing-row-value">₱100</span>
-            </div>
-            <div class="pricing-row">
-              <span class="pricing-row-label">CAD Design Base</span>
-              <span class="pricing-row-value">₱200</span>
+        <div class="section-header-grid">
+          <div class="header-col-label">
+            <div class="category-label">
+              <span class="category-square orange"></span>
+              <span class="label-style-1">Investment &amp; Rates</span>
             </div>
           </div>
-          <div class="pricing-footer">Includes electricity &amp; setup. 2 free revisions for design.</div>
+
+          <div class="header-col-title">
+            <h2 class="heading-large text-color-white" sa-lines>Transparent<br />pricing.</h2>
+          </div>
+
+          <div class="header-col-desc">
+            <p class="paragraph-lead text-muted-white">
+              Fair, upfront pricing for professional engineering, design, and development services. No hidden charges.
+            </p>
+          </div>
         </div>
 
-        <!-- Logo & Branding -->
-        <div class="pricing-card">
-          <div class="pricing-card-title">Logo &amp; Branding</div>
-          <div class="pricing-card-desc">Stand out with professional visual identity.</div>
-          <div class="pricing-rows">
-            <div class="pricing-row">
-              <span class="pricing-row-label">Basic (1 Concept)</span>
-              <span class="pricing-row-value">₱600</span>
+        <div class="horizontal-line light" data-animate-line style="margin-bottom: 3.5rem;"></div>
+
+        <!-- Editorial Pricing Columns Grid -->
+        <div class="pricing-editorial-grid">
+
+          <!-- 3D Print & Design -->
+          <div class="pricing-column" sa-block>
+            <div class="pricing-col-header">
+              <h3 class="pricing-col-title">3D Design &amp;<br />Printing</h3>
             </div>
-            <div class="pricing-row">
-              <span class="pricing-row-label">Standard (2 Concepts)</span>
-              <span class="pricing-row-value accent">₱1,000</span>
+            <div class="pricing-col-specs">
+              <div class="pricing-spec-row">
+                <span>Filament Print</span>
+                <span class="spec-price">₱2 / g</span>
+              </div>
+              <div class="pricing-spec-row">
+                <span>Printing Time</span>
+                <span class="spec-price">₱55 / hr</span>
+              </div>
+              <div class="pricing-spec-row">
+                <span>Minimum Fee</span>
+                <span class="spec-price">₱100</span>
+              </div>
+              <div class="pricing-spec-row">
+                <span>CAD Design Base</span>
+                <span class="spec-price">₱200+</span>
+              </div>
             </div>
-            <div class="pricing-row">
-              <span class="pricing-row-label">Premium (Full Pack)</span>
-              <span class="pricing-row-value">₱2,000</span>
-            </div>
-            <div class="pricing-row">
-              <span class="pricing-row-label">Logo Refresh</span>
-              <span class="pricing-row-value">₱300+</span>
+            <div class="pricing-col-footer">
+              Includes setup &amp; machine electricity. 2 free revisions for design.
             </div>
           </div>
-          <div class="pricing-footer">Standard includes PNG/JPEG &amp; Transparents. Premium includes Vector/Source.</div>
-        </div>
 
-        <!-- Software Dev (Popular) -->
-        <div class="pricing-card popular">
-          <div class="pricing-badge">Popular</div>
-          <div class="pricing-card-title">Software Dev</div>
-          <div class="pricing-card-desc">Web, Desktop, and Mobile solutions.</div>
-          <div class="pricing-rows">
-            <div class="pricing-row">
-              <span class="pricing-row-label">Simple Scripts</span>
-              <span class="pricing-row-value">₱2k – ₱5k</span>
+          <!-- Logo & Branding -->
+          <div class="pricing-column" sa-block>
+            <div class="pricing-col-header">
+              <h3 class="pricing-col-title">Logo &amp;<br />Branding</h3>
             </div>
-            <div class="pricing-row">
-              <span class="pricing-row-label">Small Apps</span>
-              <span class="pricing-row-value accent">₱6k – ₱15k</span>
+            <div class="pricing-col-specs">
+              <div class="pricing-spec-row">
+                <span>Basic (1 Concept)</span>
+                <span class="spec-price">₱600</span>
+              </div>
+              <div class="pricing-spec-row">
+                <span>Standard (2 Concepts)</span>
+                <span class="spec-price">₱1,000</span>
+              </div>
+              <div class="pricing-spec-row">
+                <span>Premium (Full Pack)</span>
+                <span class="spec-price">₱2,000</span>
+              </div>
+              <div class="pricing-spec-row">
+                <span>Logo Refresh</span>
+                <span class="spec-price">₱300+</span>
+              </div>
             </div>
-            <div class="pricing-row">
-              <span class="pricing-row-label">Full Systems</span>
-              <span class="pricing-row-value">₱20k+</span>
-            </div>
-            <div class="pricing-row">
-              <span class="pricing-row-label">Hourly Rate</span>
-              <span class="pricing-row-value">₱700 / hr</span>
+            <div class="pricing-col-footer">
+              Premium includes vector source files (AI/SVG) &amp; full asset exports.
             </div>
           </div>
-          <div class="pricing-footer">3 free revisions included. Post-delivery support available.</div>
-        </div>
 
-        <!-- Electronics & IoT -->
-        <div class="pricing-card">
-          <div class="pricing-card-title">Electronics &amp; IoT</div>
-          <div class="pricing-card-desc">Circuit design for STEM &amp; Thesis projects.</div>
-          <div class="pricing-rows">
-            <div class="pricing-row">
-              <span class="pricing-row-label">Consultation</span>
-              <span class="pricing-row-value">₱500</span>
+          <!-- Software Dev (Featured Column) -->
+          <div class="pricing-column featured" sa-block>
+            <div class="pricing-col-header">
+              <span class="featured-tag">MOST POPULAR</span>
+              <h3 class="pricing-col-title">Software<br />Development</h3>
             </div>
-            <div class="pricing-row">
-              <span class="pricing-row-label">Schematic Design</span>
-              <span class="pricing-row-value accent">₱600 / hr</span>
+            <div class="pricing-col-specs">
+              <div class="pricing-spec-row">
+                <span>Simple Scripts</span>
+                <span class="spec-price">₱2k – ₱5k</span>
+              </div>
+              <div class="pricing-spec-row">
+                <span>Small Web Apps</span>
+                <span class="spec-price">₱6k – ₱15k</span>
+              </div>
+              <div class="pricing-spec-row">
+                <span>Full Enterprise Systems</span>
+                <span class="spec-price">₱20k+</span>
+              </div>
+              <div class="pricing-spec-row">
+                <span>Hourly Rate</span>
+                <span class="spec-price">₱700 / hr</span>
+              </div>
             </div>
-            <div class="pricing-row">
-              <span class="pricing-row-label">PCB Layout</span>
-              <span class="pricing-row-value">₱700 / hr</span>
-            </div>
-            <div class="pricing-row">
-              <span class="pricing-row-label">Simple Circuit</span>
-              <span class="pricing-row-value">₱2k – ₱5k</span>
+            <div class="pricing-col-footer">
+              3 free revisions included. Post-delivery support available.
             </div>
           </div>
-          <div class="pricing-footer">Consultation fee waived if project proceeds.</div>
+
+          <!-- Electronics & IoT -->
+          <div class="pricing-column" sa-block>
+            <div class="pricing-col-header">
+              <h3 class="pricing-col-title">Electronics &amp;<br />IoT Systems</h3>
+            </div>
+            <div class="pricing-col-specs">
+              <div class="pricing-spec-row">
+                <span>Initial Consultation</span>
+                <span class="spec-price">₱500</span>
+              </div>
+              <div class="pricing-spec-row">
+                <span>Schematic Design</span>
+                <span class="spec-price">₱600 / hr</span>
+              </div>
+              <div class="pricing-spec-row">
+                <span>PCB Layout</span>
+                <span class="spec-price">₱700 / hr</span>
+              </div>
+              <div class="pricing-spec-row">
+                <span>Simple Circuit Build</span>
+                <span class="spec-price">₱2k – ₱5k</span>
+              </div>
+            </div>
+            <div class="pricing-col-footer">
+              Consultation fee is credited toward final build if project proceeds.
+            </div>
+          </div>
+
         </div>
 
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ========================================
-       CONTACT / CTA
-       ======================================== -->
-  <section id="contact">
-    <div class="contact-bg" aria-hidden="true"></div>
-    <div class="container contact-inner">
 
-      <!-- Left: Heading & Links -->
-      <div>
-        <div class="section-label will-animate">Get in Touch</div>
-        <h2 class="contact-heading will-animate">Ready to craft<br />your vision?</h2>
-        <p class="contact-sub will-animate">Reach out today to discuss your project requirements. We respond within 24 hours.</p>
+    <!-- ===================================================
+         CONTACT / CTA SECTION
+         =================================================== -->
+    <section id="contact" class="section-contact background-color-white">
+      <div class="container container-large">
+        <div class="contact-editorial-grid">
 
-        <div class="contact-links will-animate">
-          <a href="tel:+639192471080" class="contact-link-card">
-            <div class="contact-link-icon navy">
-              <span class="material-symbols-outlined">call</span>
+          <div class="contact-left-col">
+            <div class="category-label">
+              <span class="category-square"></span>
+              <span class="label-style-1">Get In Touch</span>
             </div>
-            <div>
-              <div class="contact-link-label">Phone</div>
-              <div class="contact-link-value">+63 919 247 1080</div>
+            <h2 class="heading-large" sa-lines>Ready to craft<br />your vision?</h2>
+            <p class="paragraph-lead" style="margin-top: 1.25rem;">
+              Reach out today to discuss your hardware, 3D printing, or software project. We respond to all inquiries within 24 hours.
+            </p>
+
+            <div class="contact-links-list">
+              <div class="horizontal-line" data-animate-line></div>
+              <a href="tel:+639192471080" class="contact-link-item">
+                <span class="contact-link-type">PHONE</span>
+                <span class="contact-link-val">+63 919 247 1080 &rarr;</span>
+              </a>
+              <div class="horizontal-line" data-animate-line></div>
+              <a href="mailto:cc.codecraft3d@gmail.com" class="contact-link-item">
+                <span class="contact-link-type">EMAIL</span>
+                <span class="contact-link-val">cc.codecraft3d@gmail.com &rarr;</span>
+              </a>
+              <div class="horizontal-line" data-animate-line></div>
+              <a href="https://www.facebook.com/profile.php?id=61577838842721" target="_blank" rel="noopener" class="contact-link-item">
+                <span class="contact-link-type">FACEBOOK</span>
+                <span class="contact-link-val">@Code&amp;Craft &rarr;</span>
+              </a>
+              <div class="horizontal-line" data-animate-line></div>
             </div>
-          </a>
-          <a href="mailto:cc.codecraft3d@gmail.com" class="contact-link-card">
-            <div class="contact-link-icon orange">
-              <span class="material-symbols-outlined">mail</span>
+          </div>
+
+          <div class="contact-right-col">
+            <div class="contact-cta-card background-color-dark-grey text-color-white">
+              <span class="category-label orange">
+                <span class="category-square orange"></span>
+                <span class="label-style-1" style="color:var(--orange);">START YOUR PROJECT</span>
+              </span>
+              <h3 class="contact-card-title">Get a custom quote in under 24 hours</h3>
+              <p class="contact-card-text">Fill out our intake questionnaire and our engineering team will review your specifications and provide a tailored estimate.</p>
+
+              <a href="https://codecraftmanagement.vercel.app/inquiry?source=CC-10" target="_blank" class="button-primary-pill full-width font-large" id="contact-cta-btn">
+                <span>Start your quote &rarr;</span>
+              </a>
+              <p class="contact-card-sub">Free consultation &bull; No commitment required</p>
             </div>
-            <div>
-              <div class="contact-link-label">Email</div>
-              <div class="contact-link-value">cc.codecraft3d@gmail.com</div>
-            </div>
-          </a>
-          <a href="https://www.facebook.com/profile.php?id=61577838842721" target="_blank" rel="noopener" class="contact-link-card">
-            <div class="contact-link-icon fb">
-              <span class="material-symbols-outlined">facebook</span>
-            </div>
-            <div>
-              <div class="contact-link-label">Facebook</div>
-              <div class="contact-link-value">@Code&amp;Craft</div>
-            </div>
-          </a>
+          </div>
+
         </div>
       </div>
+    </section>
 
-      <!-- Right: Big CTA -->
-      <div class="will-animate-right">
-        <div class="contact-cta-group">
-          <p style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;color:var(--text-secondary);line-height:1.6;margin-bottom:1.5rem;">
-            Fill out our inquiry form and we'll build a tailored quote for your project — hardware, software, or both.
-          </p>
-          <a href="https://codecraftmanagement.vercel.app/inquiry?source=CC-10" target="_blank" class="contact-big-cta" id="contact-cta-btn">
-            <span class="material-symbols-outlined" style="font-size:22px;">send</span>
-            Start Your Project
-          </a>
-          <p class="contact-note">Free consultation · No commitment required</p>
+  </main>
+
+
+  <!-- =====================================================
+       FOOTER SECTION
+       ===================================================== -->
+  <footer class="section-footer background-color-dark-grey text-color-white">
+    <div class="container container-large">
+      <div class="footer-inner">
+        <a href="#" class="footer-brand">
+          <img src="logo.png" alt="Code&amp;Craft" />
+          <span class="brand-name">Code&amp;Craft</span>
+        </a>
+
+        <ul class="footer-links-list">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#difference">The Difference</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#portfolio">Work</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="footer-status-tag">
+          <span class="status-indicator-dot"></span>
+          Operational &amp; Accepting Projects
         </div>
+
+        <p class="footer-copyright">&copy; 2025 Code&amp;Craft. All rights reserved.</p>
       </div>
-
-    </div>
-  </section>
-
-  <!-- ========================================
-       FOOTER
-       ======================================== -->
-  <footer>
-    <div class="container footer-inner">
-      <a href="#" class="footer-logo">
-        <img src="logo.png" alt="Code&amp;Craft" />
-        Code&amp;Craft
-      </a>
-
-      <ul class="footer-links">
-        <li><a href="#services" onclick="scrollToService('3d-design')">3D Design</a></li>
-        <li><a href="#services" onclick="scrollToService('software')">Software</a></li>
-        <li><a href="#services" onclick="scrollToService('electronics')">Electronics</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <div class="footer-status">
-        <span class="status-dot"></span>
-        Operational
-      </div>
-
-      <p class="footer-copy">© 2025 Code&amp;Craft. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- ========================================
+
+  <!-- =====================================================
        SERVICE DETAIL MODAL
-       ======================================== -->
-  <div id="service-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Service details">
-    <div class="modal-box" id="modal-content">
-      <!-- Image side -->
-      <div class="modal-image-side">
-        <img id="modal-image" src="" alt="Service Image" />
-        <div class="modal-image-overlay"></div>
-      </div>
-      <!-- Content side -->
-      <div class="modal-content-side" style="position:relative;">
-        <button id="close-modal" class="modal-close" aria-label="Close modal">
-          <span class="material-symbols-outlined" style="font-size:16px;">close</span>
-        </button>
-        <span id="modal-tag" class="modal-tag"></span>
-        <h3 id="modal-title" class="modal-title"></h3>
-        <p id="modal-desc" class="modal-desc"></p>
-        <div class="modal-features-title">Included Features</div>
-        <ul id="modal-features" class="modal-features-list"></ul>
-        <a href="https://codecraftmanagement.vercel.app/inquiry?source=CC-10" target="_blank" class="modal-cta">
-          <span class="material-symbols-outlined" style="font-size:18px;">send</span>
-          Get a Quote
-        </a>
+       ===================================================== -->
+  <div id="service-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Service Details">
+    <div class="modal-card">
+      <button id="close-modal" class="modal-close-btn" aria-label="Close Modal">&times;</button>
+      <div class="modal-grid">
+        <div class="modal-media-side">
+          <img id="modal-image" src="" alt="Service Detail" />
+        </div>
+        <div class="modal-content-side">
+          <span id="modal-tag" class="modal-category-tag"></span>
+          <h3 id="modal-title" class="modal-heading"></h3>
+          <p id="modal-desc" class="modal-description"></p>
+
+          <span class="modal-spec-label">INCLUDED CAPABILITIES</span>
+          <ul id="modal-features" class="modal-features-list"></ul>
+
+          <a href="https://codecraftmanagement.vercel.app/inquiry?source=CC-10" target="_blank" class="button-primary-pill full-width margin-top-auto">
+            <span>Get a quote for this service &rarr;</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="script.js"></script>
+  <!-- Main JavaScript File -->
+  <script src="script.js?v=5"></script>
 </body>
 </html>
