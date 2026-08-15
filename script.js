@@ -92,15 +92,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const letterHeadings = document.querySelectorAll('[sa-letters]');
   letterHeadings.forEach(heading => {
     const rawText = heading.textContent.trim();
-    heading.innerHTML = rawText.split('').map(char => {
-      if (char === ' ') return '&nbsp;';
-      return `<span class="letter-span" style="display:inline-block; opacity:0; transform:translateY(40px) rotate(8deg);">${char}</span>`;
-    }).join('');
+    // Split into words, wrap each word in a word-span that stays together
+    // Words are separated by real spaces that allow natural line-break
+    const words = rawText.split(/\s+/);
+    heading.innerHTML = words.map(word => {
+      const letters = word.split('').map(char => {
+        return `<span class="letter-span" style="display:inline-block; opacity:0; transform:translateY(40px) rotate(8deg);">${char}</span>`;
+      }).join('');
+      return `<span class="word-span" style="display:inline-block; white-space:nowrap;">${letters}</span>`;
+    }).join(' ');
 
-    const letters = heading.querySelectorAll('.letter-span');
+    const allLetters = heading.querySelectorAll('.letter-span');
     if (typeof anime !== 'undefined') {
       anime({
-        targets: letters,
+        targets: allLetters,
         opacity: [0, 1],
         translateY: [40, 0],
         rotate: [8, 0],
@@ -109,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         easing: 'easeOutElastic(1, .6)'
       });
     } else {
-      letters.forEach(l => { l.style.opacity = '1'; l.style.transform = 'none'; });
+      allLetters.forEach(l => { l.style.opacity = '1'; l.style.transform = 'none'; });
     }
   });
 
