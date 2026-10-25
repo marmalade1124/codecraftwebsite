@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {parseHTML} from 'linkedom';
+import {initMotion} from '../motion.mjs';
+const {window,document}=parseHTML(readFileSync(new URL('../index.html',import.meta.url),'utf8'));
+const arcs=[]; const canvas=document.getElementById('road-canvas');canvas.width=1000;canvas.height=900;
+canvas.getContext=()=>({clearRect(){},beginPath(){},fill(){},arc(...values){arcs.push(values)}});
+Object.assign(globalThis,{window,document});
+const timelines=[];let reverted=0;
+const tween={to(){return this},from(){return this},fromTo(){return this}};
+window.gsap={registerPlugin(){},set(){},from(){return tween},to(){return tween},context(fn){fn();return {revert(){reverted++}}},timeline(config){timelines.push(config);return Object.create(tween)}};
+window.ScrollTrigger={create(){},refresh(){}};
+const motion=initMotion(true);
+assert.equal(timelines.length,0,'Reduced/paused view must not create pinned scenes');
+assert(!document.documentElement.classList.contains('motion-ready'));
+motion.setPaused(false);
+assert.equal(timelines.length,2,'Process and work must each own a pinned timeline');
+assert(document.documentElement.classList.contains('motion-ready'));
+for(const timeline of timelines){assert(timeline.scrollTrigger.pin);assert(timeline.scrollTrigger.scrub>0);assert.equal(timeline.scrollTrigger.end,'bottom bottom');}
+for(const progress of [0,.25,.5,.75,1])timelines[0].scrollTrigger.onUpdate({progress});
+assert(arcs.length>1000);assert(arcs.every(values=>values.every(Number.isFinite)),'Every road particle must have finite coordinates');
+assert.equal(document.querySelectorAll('.benefit-art span').length,80);
+motion.setPaused(true);assert.equal(reverted,1);assert(!document.documentElement.classList.contains('motion-ready'));
+motion.setPaused(true);assert.equal(reverted,1,'Repeated paused updates must not rebuild scenes');
+window.gsap=undefined;const fallback=initMotion(false);assert(!document.documentElement.classList.contains('motion-ready'));fallback.setPaused(true);
+assert.equal(document.querySelectorAll('.process-copy').length,4);assert.equal(document.querySelectorAll('.work-plane').length,4);
+console.log('PASS: static/reduced fallback, two pinned scroll scenes, finite road geometry, pause cleanup and missing-library fallback');

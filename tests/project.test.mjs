@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {buildProjectBrief} from '../project.mjs';
+const data={name:'  Sam Rivera ',email:'sam@example.com',company:'',message:' Build an accessible booking website. '};
+const plain=buildProjectBrief(data,'Software & Web',[]);
+assert(plain.includes('Name: Sam Rivera'));
+assert(plain.includes('Extras: None selected'));
+assert(!plain.includes('Company:'));
+assert(plain.endsWith('Build an accessible booking website.'));
+const selected=buildProjectBrief({...data,company:'Studio'},'Hardware & Prototyping',['Physical prototype','Ongoing support']);
+assert(selected.includes('Company: Studio'));
+assert(selected.includes('Extras: Physical prototype, Ongoing support'));
+assert(selected.includes('Starting point: Hardware & Prototyping'));
+console.log('PASS: project brief preserves selected scope and contact details without implying payment or submission');

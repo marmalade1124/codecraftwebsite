@@ -15,3 +15,8 @@ Thumbs.db
 
 # Logs
 *.log
+output/
+.playwright-cli/
+
+# Local hosting connection
+.netlify/

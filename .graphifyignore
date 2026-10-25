@@ -1,0 +1,7 @@
+# Generated captures and unused legacy effect are outside the active website graph.
+output/
+.playwright-cli/
+assets/
+*.jpg
+*.png
+liquid-ether.js
